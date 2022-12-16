@@ -1,7 +1,9 @@
 import styles from './index.module.scss';
 import check from '../../assets/svgs/check.svg';
-
-const index = () => {
+import Button from '../../components/Buttons/Button';
+import { useNavigate } from 'react-router-dom';
+const Index = () => {
+	const navigate = useNavigate();
 	return (
 		<>
 			<div className={styles.textContainer}>
@@ -74,11 +76,11 @@ const index = () => {
 							</section>
 						</div>
 					</div>
-					<button>Go Premium</button>
+					<Button name="Go premium" onClick={() => navigate('/subscription')} />
 				</div>
 			</div>
 		</>
 	);
 };
 
-export default index;
+export default Index;

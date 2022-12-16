@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Button from '../../components/Buttons/Button';
 import styles from './index.module.scss';
-
+import { useAppDispatch } from '../../store/hooks';
+import { userActions } from '../../store/AuthSlice';
 const Index = () => {
+	const dispatch = useAppDispatch();
+	const navigate = useNavigate();
 	const [user, setUser] = useState({
 		firstname: '',
 		lastname: '',
@@ -11,10 +14,10 @@ const Index = () => {
 		password: '',
 	});
 
-	// const handleSubmit = () => {
-	// 	dispatch(createAppUser(user));
-	// 	router.push('/login');
-	// };
+	const handleSubmit = () => {
+		dispatch(userActions.createAppUser(user));
+		navigate('/login');
+	};
 	return (
 		<div className={styles.container}>
 			<h2>WALLSTREET FINDS</h2>
@@ -38,7 +41,7 @@ const Index = () => {
 					onChange={(e) => setUser({ ...user, password: e.target.value })}
 				/>
 
-				<Button name="Create Account" />
+				<Button name="Create Account" onClick={handleSubmit} />
 				<p>OR SIGN UP WITH</p>
 				<Button name="GOOGLE" />
 

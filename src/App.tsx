@@ -15,6 +15,7 @@ import WatchlistAddStock from '../src/pages/watchlist/add-stock';
 import PortfolioAddStock from '../src/pages/portfolio/add-stock';
 import WatchlistSpecificStock from '../src/pages/watchlist/specific-stock';
 import PortfilioSpecificStock from '../src/pages/portfolio/specific-stock';
+import Subscription from '../src/pages/subscription';
 
 function App() {
 	return (
@@ -27,6 +28,7 @@ function App() {
 				<Route path="/sign-up" element={<SignUp />} />
 				<Route path="/forgot-password" element={<ForgotPassword />} />
 				<Route path="/news" element={<News />} />
+				<Route path="/subscription" element={<Subscription />} />
 				<Route path="/screener" element={<Screener />} />
 				<Route path="/portfolio" element={<Portfolio />} />
 				<Route path="/watchlist" element={<Watchlist />} />

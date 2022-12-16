@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState, createThunkAction } from '.';
 import { AppUser } from '../types/user';
-// import * as UserService from '../services/user.services';
+import * as UserService from '../services/user.services';
 import * as AuthService from '../services/auth.services';
 import { push } from 'connected-react-router';
 
@@ -34,23 +34,22 @@ export const userSlice = createSlice({
 /**
  * Thunks
  */
-
-// export const createAppUser = createAsyncThunk('users/create', async (userInfo: AppUser) => {
-// 	try {
-// 		// Fetch the backend endpoint:
-// 		const response = await UserService.createAppUser(userInfo);
-// 		console.log(response);
-// 		// Return result:
-// 		return response;
-// 	} catch (err) {
-// 		if (err instanceof Error) {
-// 			console.log('an error occured in createAppuser');
-// 			console.log(err.message);
-// 		} else {
-// 			console.log('Unexpected error', err);
-// 		}
-// 	}
-// });
+const createAppUser = createThunkAction<void, Partial<AppUser>>(
+	'users/createAppUser',
+	async (userInfo, { dispatch }) => {
+		try {
+			const result = await UserService.createAppUser(userInfo);
+			return result;
+		} catch (err) {
+			if (err instanceof Error) {
+				console.log('an error occured in createAppuser');
+				console.log(err.message);
+			} else {
+				console.log('Unexpected error', err);
+			}
+		}
+	},
+);
 
 const login = createThunkAction<void, { email: string; password: string; onSuccess?: () => void }>(
 	'users/login',
@@ -59,7 +58,6 @@ const login = createThunkAction<void, { email: string; password: string; onSucce
 			const { token, user } = await AuthService.login(email, password);
 
 			dispatch(userActions.setAuthToken(token));
-			// dispatch(userActions.setRefreshToken(refreshToken));
 			dispatch(userActions.setUser(user));
 
 			onSuccess?.();
@@ -83,7 +81,6 @@ const logout = createThunkAction<void, void>('users/logout', async (_, { dispatc
 		}
 	} catch (error) {
 		console.log(error);
-		// dispatch(sharedActions.setToastStatus({ status: 'error', message: 'Internal Server Error :(' }));
 	} finally {
 		dispatch(userActions.setUser({}));
 		dispatch(userActions.setAuthToken(undefined));
@@ -91,7 +88,7 @@ const logout = createThunkAction<void, void>('users/logout', async (_, { dispatc
 	}
 });
 
-export const userActions = { ...userSlice.actions, login, logout };
+export const userActions = { ...userSlice.actions, createAppUser, login, logout };
 
 export const userSelectors = {
 	selectAuthState: (state: RootState) => state.user.user,
