@@ -1,0 +1,10 @@
+@import "../../assets/global-styles/theme.scss";
+
+.container {
+    color: $light-text;
+    background-color: $secondary-color;
+    height: 50px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    cursor: pointer;
+}

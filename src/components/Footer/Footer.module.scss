@@ -1,0 +1,39 @@
+@import '../../assets/global-styles/theme.scss';
+
+.container {
+    padding: 50px 10%;
+    background-color: #2E3236;
+
+    div {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    h2 {
+        text-align: center;
+        color: $light-text;
+        margin-top: 50px;
+    }
+
+    h5 {
+        color: $light-text;
+        font-weight: 700;
+        font-size: 22px;
+        margin: 0px 0;
+    }
+
+    p {
+        margin: 10px 0;
+        color: #d4d4d4;
+        cursor: pointer;
+    }
+}
+
+.imageContainer {
+    margin-top: 15px;
+    margin-bottom: 30px;
+
+    .image {
+        cursor: pointer;
+    }
+}

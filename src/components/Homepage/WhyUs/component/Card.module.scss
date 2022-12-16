@@ -1,0 +1,17 @@
+@import '../../../../assets/global-styles/theme.scss';
+
+.container {
+    width: 25%;
+    background-color: red;
+    padding: 20px;
+    border-radius: 10px;
+
+    h4 {
+        font-weight: 500;
+        font-size: 22px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: $light-text;
+    }
+}

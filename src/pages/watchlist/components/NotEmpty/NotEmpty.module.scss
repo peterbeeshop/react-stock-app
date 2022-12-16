@@ -1,0 +1,43 @@
+@import "../../../../assets/global-styles/theme.scss";
+
+.container {
+    margin-bottom: 40px;
+    section {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        margin-bottom: 30px;
+    }
+
+    h2 {
+        margin: 0 0;
+        margin-top: 20px;
+    }
+}
+
+.formContainer {
+    width: 45%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+
+.card {
+    margin-top: 20px;
+    h4 {
+        margin: 5px 0;
+        color: $light-text;
+    }
+
+    p {
+        margin: 0 0;
+        color: #d4d4d4d4;
+        font-size: 12px;
+        padding-bottom: 5px;
+    }
+}

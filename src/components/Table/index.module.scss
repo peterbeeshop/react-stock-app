@@ -1,0 +1,45 @@
+@import "../../assets/global-styles/theme.scss";
+
+.container {
+    display:flex;
+    flex-direction: column;
+    height: 100%;
+    width:100%;
+
+    table {
+        border-collapse:collapse;
+        table-layout: fixed;
+        width: 100%;
+      th {
+        font-weight: 600;
+        height: 45px;
+        font-size: 16px;
+        border-bottom: 2px solid #D9D9D9; 
+        border-top: 2px solid #D9D9D9;
+        color: $light-text;
+      }
+
+      th:first-child {  
+       border-left: 2px solid #D9D9D9;
+      }
+
+      th:last-child {
+       border-right: 2px solid #D9D9D9;
+      }
+
+    
+    tbody {
+        tr { 
+            height: 50px;
+            border: 1px solid #9C9494;  
+            td {
+                border: 1px solid #9C9494;  
+                text-align: center;
+                color: $light-text;
+                font-weight: 200;
+            }
+           
+        }
+    }
+    }
+}

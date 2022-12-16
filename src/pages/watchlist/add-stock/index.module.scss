@@ -1,0 +1,61 @@
+@import "../../../assets/global-styles/theme.scss";
+
+.container {
+    padding: 20px 10%;
+
+    h2 {
+        text-align: center;
+        color: $primary-color;
+    }
+
+    section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 20px 0;
+    }
+}
+
+.cardContainer {
+    background: #536069;
+    width: 60%;
+    margin: 0 auto;
+    padding-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.box {
+    display: flex;
+    justify-content: space-around;
+    align-items: center !important;
+    padding-top: 30px !important;
+
+    p {
+        color: #D4D4D4;
+        font-size: 14px;
+    }
+}
+
+.backButton {
+    background-color: transparent !important;
+    color: $primary-color;
+    margin-right: 20px;
+}
+
+.addButton {
+    width: 80px;
+    height: 40px;
+}
+
+
+.standardSearch {
+    width: 40% !important;
+}
+
+.textField {
+    width: 20% !important;
+    background-color: #F5F9FD;
+    border-radius: 8px;
+    border-bottom: none !important;
+}

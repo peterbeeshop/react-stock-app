@@ -1,0 +1,54 @@
+@import "../../assets/global-styles/theme.scss";
+
+
+.container {
+    padding: 20px 10%;
+
+    h2 {
+        color: $light-text ;
+        font-weight: 600;
+    }
+    .input {
+        width: 40%;
+    }
+
+    section {
+        margin-top: 20px;
+        width: 100%;
+        padding: 20px 0;
+        background-color: #434E56;
+
+        .buttonContainer {
+            margin-top: 20px;
+            text-align: end;
+        }
+    }
+
+    p {
+        display: flex;
+        align-items: center;
+        margin-top: 30px;
+        color: $light-text;
+    }
+}
+
+.dropdown {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.searchButton {
+    width: 150px;
+    height: 40px;
+}
+
+.resetButton {
+    background-color: transparent;
+    margin-right: 20px;
+    width: 80px;
+    height: 40px;
+    color: $primary-color;
+}
+

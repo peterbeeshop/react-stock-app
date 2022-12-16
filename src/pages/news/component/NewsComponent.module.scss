@@ -1,0 +1,22 @@
+@import '../../../assets/global-styles/theme.scss';
+
+.container {
+    border-top: 1px solid #9C9494;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    transition: ease-in 0.2s;
+
+    &:hover {
+        background-color: #434E56;
+        border-radius: 10px;
+        padding-left: 10px;
+    }
+    .readMore {
+        color: $light-text;
+    }
+}
+
+.description {
+    color: $light-text;
+    font-weight: 200;
+}

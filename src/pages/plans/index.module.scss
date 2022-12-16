@@ -1,0 +1,91 @@
+@import '../../assets/global-styles/theme.scss';
+
+.textContainer {
+    background-color: #474D59;
+    height: 150px;
+
+    h4 {
+        margin: 0 auto;
+        padding-top: 20px;
+        font-weight: 700;
+        font-size: 40px;
+        color: $primary-color;
+        text-align: center;
+        width: 40%;
+    }
+}
+
+.cardContainer {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 6%;
+    padding-bottom: 10%;
+}
+
+.card {
+    width: 350px;
+    background-color: $card;
+    text-align: center;
+    height: fit-content;
+    border-radius: 8px;
+
+    .text {
+        color: $light-text;
+        width: 90%;
+        margin: 25px auto;
+    }
+
+    h5 {
+        font-weight: 800;
+        font-size: 24px;
+        margin: 0 0;
+        margin-top: 15px;
+
+    }
+
+    h6 {
+        font-weight: 400;
+        font-size: 20px;
+        color: $light-text;
+        margin: 0 0;
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+
+    button {
+        color: $light-text;
+        background-color: $secondary-color;
+        font-size: 18px;
+        border: 1px solid transparent;
+        width: 70%;
+        margin: 0 auto;
+        height: 40px;
+        border-radius: 12px;
+        margin-top: 20px;
+        margin-bottom: 40px;
+        cursor: pointer;
+    }
+
+    div {
+
+        h5 {
+            font-weight: 400;
+            margin: 15px 0;
+        }
+        section {
+            display: flex;
+            align-items: center;
+            text-align: start;
+
+            p {
+                margin-left: 15px;
+                color: $light-text;
+            }
+        }
+    }
+}
+
+.innerContainer {
+    padding: 0 20px;
+
+}

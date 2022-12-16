@@ -1,0 +1,52 @@
+@import "../../../assets/global-styles/theme.scss";
+
+
+.container {
+    padding: 0 10%;
+
+    h2 {
+        color: $light-text;
+    }
+    .news {
+        border-left: 3px solid $primary-color;
+        padding-left: 5px;
+        color: $light-text;
+    }
+}
+
+.buttonContainer {
+    width: 25%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    .button {
+        height: 30px;
+        width: 80px;
+        border-radius: 6px;
+        background-color: $primary-color;
+        text-transform: capitalize ;
+        font-size: 12px;
+        color: $light-text;
+    }
+}
+
+.submitButton {
+    background-color: $primary-color !important;
+    text-transform: capitalize;
+    padding: 8px 20px;
+    color: $light-text;
+}
+
+.deleteButton {
+    background-color: #A91224 !important;
+    text-transform: capitalize !important;
+    padding: 5px 20px;
+    color: $light-text !important;
+}
+
+.addStockButton {
+    background-color: $primary-color !important;
+    text-transform: capitalize !important;
+    font-size: 12px !important;
+    height: 30px;
+}

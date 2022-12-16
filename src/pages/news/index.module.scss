@@ -1,0 +1,14 @@
+@import '../../assets/global-styles/theme.scss';
+
+.container {
+    padding: 0 10%;
+    margin-bottom: 80px;
+    h2 {
+        color: $light-text;
+    }
+
+    .text {
+        color: $deemphasized-text-color;
+    }
+
+}

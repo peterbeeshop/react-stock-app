@@ -1,0 +1,41 @@
+@import '../../assets/global-styles/theme.scss';
+
+.IsEmptyContainer {
+    margin: 10% 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+
+    h2 {
+        color: $light-text;
+    }
+    p {
+        color: $deemphasized-text-color;
+        margin: 20px 0;
+    }
+}
+
+
+.button {
+    background-color: $primary-color !important;
+    width: 100% !important;
+    font-size: $font-20;
+    margin-top: 20px;
+    border-radius: 12px !important;
+    padding: 10px 150px !important;
+    margin-top: 20px !important;
+    height: 55px;
+}
+
+.submitButton {
+    background-color: $primary-color !important;
+    text-transform: capitalize;
+    padding: 8px 20px;
+    color: $light-text;
+}
+
+.notEmptyContainer {
+    padding: 0 10%;
+}
