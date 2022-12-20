@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-key */
 import { useState } from 'react';
 import styles from './index.module.scss';
 import TablePagination from '@mui/material/TablePagination';
