@@ -35,7 +35,7 @@ const Table = <TData extends object>(props: TableProps<TData>) => {
 						return (
 							<tr>
 								{props.columns.map((item) => (
-									<td key={Math.random() * 100}></td>
+									<td key={Math.random() * 100}>{cont[item]}</td>
 								))}
 							</tr>
 						);
