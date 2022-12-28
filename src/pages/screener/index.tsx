@@ -42,7 +42,6 @@ const Index = () => {
 			<p>
 				Press the <StarOutlineIcon sx={{ color: '#89B93F', marginX: 1 }} /> to add to your watchlist
 			</p>
-
 			{tableData?.length === 0 || tableData === undefined ? (
 				<Box sx={{ display: 'flex', justifyContent: 'center' }}>
 					<CircularProgress size={50} />

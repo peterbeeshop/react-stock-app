@@ -5,8 +5,9 @@ import TablePagination from '@mui/material/TablePagination';
 interface TableProps<TData> {
 	content?: TData[];
 	columns: (keyof TData)[];
+	// columns: [];
 }
-
+// columns={['name', 'symbol', 'volume', 'pctchange', 'industry', 'marketCap']}
 const Table = <TData extends object>(props: TableProps<TData>) => {
 	const [page, setPage] = useState(0);
 	const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -23,7 +24,6 @@ const Table = <TData extends object>(props: TableProps<TData>) => {
 	const columns = props.columns.map((col) => {
 		return <th key={Math.random() * 100}>{col.toString()}</th>;
 	});
-
 	return (
 		<div className={styles.container}>
 			<table>
@@ -35,7 +35,7 @@ const Table = <TData extends object>(props: TableProps<TData>) => {
 						return (
 							<tr>
 								{props.columns.map((item) => (
-									<td key={Math.random() * 100}></td>
+									<td key={Math.random() * 100}>{cont[item]}</td>
 								))}
 							</tr>
 						);

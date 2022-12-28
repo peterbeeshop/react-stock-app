@@ -17,7 +17,7 @@ import PortfolioAddStock from '../src/pages/portfolio/add-stock';
 import WatchlistSpecificStock from '../src/pages/watchlist/specific-stock';
 import PortfilioSpecificStock from '../src/pages/portfolio/specific-stock';
 import Subscription from '../src/pages/subscription';
-
+import PageNotFound from '../src/pages/PageNotFound';
 function App() {
 	return (
 		<>
@@ -38,6 +38,7 @@ function App() {
 				<Route path="/watchlist/:id" element={<WatchlistSpecificStock />} />
 				<Route path="/portfolio/add-stock" element={<PortfolioAddStock />} />
 				<Route path="/portfolio/specific-stock" element={<PortfilioSpecificStock />} />
+				<Route path="*" element={<PageNotFound />} />
 			</Routes>
 			<Footer />
 		</>
