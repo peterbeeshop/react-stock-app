@@ -29,6 +29,9 @@
 
 .card {
     margin-top: 20px;
+    img {
+        cursor: pointer;
+    }
     h4 {
         margin: 5px 0;
         color: $light-text;

@@ -7,16 +7,18 @@ import {
 	Reducer,
 } from '@reduxjs/toolkit';
 import { history } from '../utils/history';
-import userReducer from './AuthSlice';
 import persistReducer from 'redux-persist/es/persistReducer';
 import storage from 'redux-persist/lib/storage';
 import { connectRouter, routerMiddleware, RouterState } from 'connected-react-router';
 import persistStore from 'redux-persist/es/persistStore';
 import { FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
+import userReducer from './AuthSlice';
+import watchlistReducer from './watchlist';
 
 const reducers = combineReducers({
 	router: connectRouter(history) as Reducer<RouterState, AnyAction>,
 	user: userReducer,
+	watchlist: watchlistReducer,
 });
 
 /**

@@ -9,7 +9,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import { getAllStocks } from '../../services/screener.services';
 
-type TableDataProps = {
+export type TableDataProps = {
 	symbol: string;
 	name: string;
 	volume: string;

@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
-
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Footer from './components/Footer/Footer';
 import Navbar from './components/Navbar/Navbar';
 import HomePage from '../src/pages/homepage';
@@ -21,6 +22,7 @@ function App() {
 	return (
 		<>
 			<Navbar />
+			<ToastContainer position="top-center" />
 			<Routes>
 				<Route path="/" element={<HomePage />} />
 				<Route path="/plans" element={<Plans />} />
@@ -32,9 +34,9 @@ function App() {
 				<Route path="/screener" element={<Screener />} />
 				<Route path="/portfolio" element={<Portfolio />} />
 				<Route path="/watchlist" element={<Watchlist />} />
-				<Route path="/watchlist/add-stock" element={<WatchlistAddStock />} />
+				<Route path="/watchlist/:id/add-stock" element={<WatchlistAddStock />} />
+				<Route path="/watchlist/:id" element={<WatchlistSpecificStock />} />
 				<Route path="/portfolio/add-stock" element={<PortfolioAddStock />} />
-				<Route path="/watchlist/specific-stock" element={<WatchlistSpecificStock />} />
 				<Route path="/portfolio/specific-stock" element={<PortfilioSpecificStock />} />
 			</Routes>
 			<Footer />

@@ -3,8 +3,10 @@ import { RootState, createThunkAction } from '.';
 import { AppUser } from '../types/user';
 import * as UserService from '../services/user.services';
 import * as AuthService from '../services/auth.services';
-import { push } from 'connected-react-router';
-
+// import { push } from 'connected-react-router';
+import { AxiosError } from 'axios';
+import { toast } from 'react-toastify';
+import { watchlistActions } from './watchlist';
 // Type for our state
 export interface UserState {
 	user?: Partial<AppUser>;
@@ -41,11 +43,10 @@ const createAppUser = createThunkAction<void, Partial<AppUser>>(
 			const result = await UserService.createAppUser(userInfo);
 			return result;
 		} catch (err) {
-			if (err instanceof Error) {
-				console.log('an error occured in createAppuser');
-				console.log(err.message);
+			if (err instanceof AxiosError) {
+				toast.error(err.response?.data, { position: 'top-center' });
 			} else {
-				console.log('Unexpected error', err);
+				toast.error('Something went wrong with the servers. Please try again!');
 			}
 		}
 	},
@@ -59,14 +60,14 @@ const login = createThunkAction<void, { email: string; password: string; onSucce
 
 			dispatch(userActions.setAuthToken(token));
 			dispatch(userActions.setUser(user));
+			dispatch(watchlistActions.retrieveWatchlist());
 
 			onSuccess?.();
 		} catch (err) {
-			if (err instanceof Error) {
-				console.log('an error occured in createAppuser');
-				console.log(err.message);
+			if (err instanceof AxiosError) {
+				toast.error(err.response?.data, { position: 'top-center' });
 			} else {
-				console.log('Unexpected error', err);
+				toast.error('Something went wrong with the servers. Please try again!');
 			}
 		}
 	},
@@ -77,14 +78,14 @@ const logout = createThunkAction<void, void>('users/logout', async (_, { dispatc
 		const authToken = userSelectors.selectAuthToken(getState());
 
 		if (authToken !== undefined) {
-			await AuthService.logout(authToken);
+			await AuthService.logout();
+			dispatch(userActions.setUser({}));
+			dispatch(userActions.setAuthToken(undefined));
+			dispatch(watchlistActions.setWatchlist([]));
+			toast.error('Goodbye!');
 		}
 	} catch (error) {
-		console.log(error);
-	} finally {
-		dispatch(userActions.setUser({}));
-		dispatch(userActions.setAuthToken(undefined));
-		dispatch(push('/login'));
+		toast.error('An error occured on our side. Please try again!');
 	}
 });
 

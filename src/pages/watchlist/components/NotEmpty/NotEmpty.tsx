@@ -1,18 +1,18 @@
 import styles from './NotEmpty.module.scss';
-import Stock1 from '../assets/stock-1.svg';
 import { FormDialog } from '../..';
-
-// import Stock2 from '../assets/stock-2.svg';
-// import Stock3 from '../assets/stock-3.svg';
+import { useAppSelector } from '../../../../store/hooks';
+import { watchlistSelectors } from '../../../../store/watchlist';
+import { useNavigate } from 'react-router-dom';
+import moment from 'moment';
+import Stock1 from '../assets/stock-1.svg';
+import Stock2 from '../assets/stock-2.svg';
+import Stock3 from '../assets/stock-3.svg';
 
 const NotEmpty = () => {
 	return (
 		<div className={styles.container}>
 			<h2>Watchlist</h2>
 			<section>
-				<Card />
-				<Card />
-				<Card />
 				<Card />
 			</section>
 			<div className={styles.formContainer}>
@@ -25,12 +25,26 @@ const NotEmpty = () => {
 export default NotEmpty;
 
 const Card = () => {
+	const navigate = useNavigate();
+	const myWatchlist = useAppSelector(watchlistSelectors.selectAllWatchlist);
+	const arr = [Stock1, Stock2, Stock3];
+	const random = Math.floor(Math.random() * arr.length);
+
+	const handleClick = (name: string) => {
+		navigate(`/watchlist/${name}`);
+	};
 	return (
-		<div className={styles.card}>
-			<img src={Stock1} alt="stockImage1" />
-			<h4>My first watchlist</h4>
-			<p>Created: Sep 17, 2022</p>
-			<p>Includes: 2 stocks</p>
-		</div>
+		<>
+			{myWatchlist.map((watchlist) => {
+				return (
+					<div className={styles.card} key={watchlist._id} onClick={() => handleClick(watchlist._id)}>
+						<img src={arr[random]} alt="stockImage1" />
+						<h4>{watchlist.name}</h4>
+						<p>Created: {moment(watchlist.createdAt).format('MMM DD, YYYY')}</p>
+						<p>Includes: {watchlist.watchlist?.length} stocks</p>
+					</div>
+				);
+			})}
+		</>
 	);
 };

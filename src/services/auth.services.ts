@@ -8,6 +8,6 @@ export const login = async (email: string, password: string) => {
 	};
 };
 
-export const logout = async (token: string) => {
-	await apiClient.post(`/logout`);
+export const logout = async () => {
+	await apiClient.get(`/logout`);
 };

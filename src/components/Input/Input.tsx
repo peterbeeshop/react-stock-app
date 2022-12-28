@@ -3,13 +3,13 @@ import styles from './Input.module.scss';
 type InputProps = {
 	placeholder: string;
 	className?: string;
-	onClick?: () => void;
+	onChange?: () => void;
 };
 
-const Input = ({ placeholder, onClick, className }: InputProps) => {
+const Input = ({ placeholder, onChange, className }: InputProps) => {
 	return (
 		<div className={styles.container}>
-			<input type="text" placeholder={placeholder} className={`${className}`} />
+			<input type="text" placeholder={placeholder} onChange={onChange} className={`${className}`} />
 		</div>
 	);
 };

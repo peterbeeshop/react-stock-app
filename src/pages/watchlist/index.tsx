@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import styles from './index.module.scss';
 import { useNavigate } from 'react-router-dom';
 
@@ -9,12 +9,15 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import NotEmpty from './components/NotEmpty/NotEmpty';
+import { useAppSelector, useAppDispatch } from '../../store/hooks';
+import { watchlistActions, watchlistSelectors } from '../../store/watchlist';
+import { toast } from 'react-toastify';
 
 const Index = () => {
-	const watchlistIsEmpty = false;
+	const myWatchlist = useAppSelector(watchlistSelectors.selectAllWatchlist);
 	return (
 		<>
-			{watchlistIsEmpty ? (
+			{myWatchlist.length === 0 ? (
 				<div className={styles.IsEmptyContainer}>
 					<h2>
 						Your watchlist is <br /> currently empty
@@ -37,10 +40,10 @@ const Index = () => {
 export default Index;
 
 export const FormDialog = () => {
+	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
 	const [open, setOpen] = useState(false);
-	const [text, setText] = useState('');
-	const valueRef = useRef('');
+	const [watchlistName, setWatchlistName] = useState<string>('');
 
 	const handleClickOpen = () => {
 		setOpen(true);
@@ -51,8 +54,10 @@ export const FormDialog = () => {
 	};
 
 	const handleSubmit = () => {
-		setText(valueRef.current.valueOf);
-		navigate('/watchlist/add-stock');
+		setOpen(false);
+		const onSuccess = (id: string) => navigate(`/watchlist/${id}/add-stock`);
+		dispatch(watchlistActions.createWatchlist({ watchlistName, onSuccess }));
+		// navigate('/watchlist/add-stock');
 	};
 
 	return (
@@ -64,7 +69,7 @@ export const FormDialog = () => {
 				<DialogTitle style={{ paddingRight: '300px' }}>Create new watchlist</DialogTitle>
 				<DialogContent>
 					<TextField
-						inputRef={valueRef}
+						onChange={(e) => setWatchlistName(e.target.value)}
 						autoFocus
 						margin="dense"
 						required
@@ -79,9 +84,15 @@ export const FormDialog = () => {
 					<Button style={{ color: '#6FA61A' }} onClick={handleClose}>
 						Cancel
 					</Button>
-					<Button className={styles.submitButton} onClick={handleSubmit}>
-						Create
-					</Button>
+					{watchlistName?.length === 0 ? (
+						<Button variant="contained" disabled>
+							Create
+						</Button>
+					) : (
+						<Button className={styles.submitButton} onClick={handleSubmit}>
+							Create
+						</Button>
+					)}
 				</DialogActions>
 			</Dialog>
 		</div>

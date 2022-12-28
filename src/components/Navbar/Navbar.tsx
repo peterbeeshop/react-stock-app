@@ -2,16 +2,17 @@ import styles from './Navbar.module.scss';
 import Button from '../Buttons/Button';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { userActions, userSelectors } from '../../store/AuthSlice';
-import { Link, redirect } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
+	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 	const isUserLoggedIn = useAppSelector(userSelectors.selectIsUserLoggedIn);
 	const user = useAppSelector(userSelectors.selectAuthState);
 
 	const onLogout = () => {
+		navigate('/login');
 		dispatch(userActions.logout());
-		redirect('/login');
 	};
 	return (
 		<div className={styles.container}>
