@@ -1,3 +1,30 @@
+@import "../../../assets//global-styles/theme.scss";
 .container {
     padding: 0 10%;
+
+    h2 {
+        color: white
+    }
+
+    p {
+        color: #909399;
+    }
+  
+}
+
+.deleteButton {
+    background-color: #A91224 !important;
+    text-transform: capitalize !important;
+    padding: 5px 20px;
+    color: $light-text !important;
+}
+
+.button {
+    height: 30px;
+    width: 80px;
+    border-radius: 6px;
+    background-color: $primary-color;
+    text-transform: capitalize ;
+    font-size: 12px;
+    color: $light-text;
 }

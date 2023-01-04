@@ -15,6 +15,7 @@
     "@types/node": "^16.7.13",
     "@types/react": "17.0.31",
     "@types/react-dom": "17.0.10",
+    "@types/react-select": "4",
     "axios": "^1.2.1",
     "connected-react-router": "^6.9.3",
     "env-cmd": "^10.1.0",
@@ -25,6 +26,7 @@
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.4.5",
     "react-scripts": "5.0.1",
+    "react-select": "4",
     "react-table": "^7.8.0",
     "react-toastify": "^9.1.1",
     "redux-persist": "^6.0.0",
@@ -69,6 +71,7 @@
     "prettier": "^2.8.1",
     "react-country-region-selector": "^3.6.1",
     "react-credit-cards": "^0.8.3",
+    "react-tiny-virtual-list": "^2.2.0",
     "sass": "^1.56.2"
   },
   "resolutions": {

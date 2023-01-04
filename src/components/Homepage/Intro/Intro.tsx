@@ -1,26 +1,34 @@
 import styles from './Intro.module.scss';
 import logo from '../../../assets/wallstreet.jpeg';
-// import Input from '../../Input/Input';
-// import { ChangeEvent, useEffect, useState } from 'react';
-// import { getAllStocks } from '../../../services/screener.services';
-// import { TableDataProps } from '../../../pages/screener';
+import { useEffect, useState } from 'react';
+import { getAllStocks } from '../../../services/screener.services';
+import Select, { createFilter, ValueType, OptionTypeBase } from 'react-select';
+import { TableDataProps } from '../../../pages/screener';
+// import VirtualList from 'react-tiny-virtual-list';
 
 const Intro = () => {
-	// const [tableData, setTableData] = useState<TableDataProps>([]);
-	// const [search, setSearch] = useState('');
+	const [tableData, setTableData] = useState<TableDataProps>([]);
+	const [selectedOption, setSelectedOption] = useState<ValueType<OptionTypeBase, false>>();
 
-	// useEffect(() => {
-	// 	const stocks = getAllStocks();
-	// 	stocks.then((data) => setTableData(data));
-	// }, []);
+	useEffect(() => {
+		const stocks = getAllStocks();
+		stocks.then((data) => setTableData(data));
+	}, []);
 
-	// const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-	// 	setSearch(e.target.value);
-	// };
+	useEffect(() => {
+		console.log(selectedOption);
+	}, [selectedOption]);
 
-	// const filteredCoins = tableData.filter((coin) => coin.name.toLowerCase().includes(search.toLowerCase()));
-	// filteredCoins.map((coin) => console.log(coin.name));
-	// console.log(tableData);
+	const options: OptionTypeBase[] = tableData?.map((stock) => {
+		stock.value = stock.symbol;
+		stock.label = stock.name;
+		return stock;
+	});
+
+	const handleChange = (option: ValueType<OptionTypeBase, false>) => {
+		setSelectedOption(option);
+	};
+
 	return (
 		<div className={styles.container}>
 			<section className={styles.leftContainer}>
@@ -31,27 +39,16 @@ const Intro = () => {
 				</p>
 				<div>
 					<h6>Search for a stock</h6>
-					<input
-						type="text"
-						// onChange={handleChange}
+					<Select
 						placeholder="search for stock or company name..."
-						className={styles.input}
-					/>
-					{/* <div className={styles.searchStockDiv}>
-						{filteredCoins.map((coin) => {
-							return (
-								<div>
-									<p className={styles.searchStock}>{coin.name}</p>
-									<hr />
-								</div>
-							);
+						value={selectedOption}
+						options={options}
+						onChange={handleChange}
+						isClearable
+						filterOption={createFilter({
+							ignoreAccents: false,
 						})}
-					</div> */}
-					{/* <Input
-						// onChange={(e) => handleChange}
-						placeholder="search for stock or company name..."
-						className={styles.input}
-					/> */}
+					/>
 				</div>
 			</section>
 			<section className={styles.rightContainer}>

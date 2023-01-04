@@ -64,6 +64,10 @@ export const watchlistActions = { ...slice.actions, retrieveWatchlist, createWat
 
 export const watchlistSelectors = {
 	selectAllWatchlist: (state: RootState) => state.watchlist.watchlist,
+	selectWatchlistById: (state: RootState, id: string) => {
+		const list = watchlistSelectors.selectAllWatchlist(state);
+		return list.find((watchlist) => watchlist._id === id);
+	},
 };
 
 export default slice.reducer;

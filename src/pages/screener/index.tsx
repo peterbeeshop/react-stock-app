@@ -17,6 +17,8 @@ export type TableDataProps = {
 	industry: string;
 	pctchange: number;
 	url: string;
+	value?: string;
+	label?: string;
 }[];
 
 const Index = () => {

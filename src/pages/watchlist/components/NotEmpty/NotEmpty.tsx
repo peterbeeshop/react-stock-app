@@ -30,8 +30,8 @@ const Card = () => {
 	const arr = [Stock1, Stock2, Stock3];
 	const random = Math.floor(Math.random() * arr.length);
 
-	const handleClick = (name: string) => {
-		navigate(`/watchlist/${name}`);
+	const handleClick = (id: string) => {
+		navigate(`/watchlist/${id}`);
 	};
 	return (
 		<>
