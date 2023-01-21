@@ -1,16 +1,33 @@
 import { useState } from 'react';
 import styles from './index.module.scss';
 import TablePagination from '@mui/material/TablePagination';
-
+import { useNavigate } from 'react-router-dom';
 interface TableProps<TData> {
 	content?: TData[];
 	columns: (keyof TData)[];
-	// columns: [];
 }
-// columns={['name', 'symbol', 'volume', 'pctchange', 'industry', 'marketCap']}
-const Table = <TData extends object>(props: TableProps<TData>) => {
+
+type DataProps = {
+	symbol: string;
+	name?: string;
+	volume: string;
+	marketCap?: string;
+	industry: string;
+	pctchange?: number;
+	price?: string;
+	url?: string;
+	value?: string;
+	label?: string;
+};
+
+const Table = <TData extends DataProps>(props: TableProps<TData>) => {
+	const navigate = useNavigate();
 	const [page, setPage] = useState(0);
 	const [rowsPerPage, setRowsPerPage] = useState(10);
+
+	const handleClick = (data: DataProps) => {
+		navigate(`/screener/${data.symbol}`);
+	};
 
 	const handleChangePage = (event: unknown, newPage: number) => {
 		setPage(newPage);
@@ -35,7 +52,9 @@ const Table = <TData extends object>(props: TableProps<TData>) => {
 						return (
 							<tr>
 								{props.columns.map((item) => (
-									<td key={Math.random() * 100}>{cont[item]}</td>
+									<td key={Math.random() * 100} onClick={() => handleClick(cont)}>
+										{cont[item]}
+									</td>
 								))}
 							</tr>
 						);

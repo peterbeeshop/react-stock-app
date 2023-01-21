@@ -1,17 +1,20 @@
-import { Link } from 'react-router-dom';
 import styles from './NewsComponent.module.scss';
 
 type NewsComponentProps = {
 	description: string;
+	title?: string;
+	key?: string;
+	link?: string;
 };
 
-const NewsComponent = ({ description }: NewsComponentProps) => {
+const NewsComponent = ({ description, key, link, title }: NewsComponentProps) => {
 	return (
-		<div className={styles.container}>
+		<div key={key} className={styles.container}>
+			<h4>{title}</h4>
 			<p className={styles.description}>{description}</p>
-			<Link className={styles.readMore} to="#">
-				Read More
-			</Link>
+			<a href={link !== undefined ? link : '#'} className={styles.readMore} target="_blank" rel="noreferrer">
+				Read more
+			</a>
 		</div>
 	);
 };

@@ -1,25 +1,48 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
 import AddIcon from '@mui/icons-material/Add';
 import Calculator from '../../../assets/svgs/calculator.svg';
 import Comments from './Comments/Comments';
 import Button from '../../../components/Buttons/Button';
 import NewsComponent from '../../news/component/NewsComponent';
+import { getAllStocks, stockSearch } from '../../../services/screener.services';
+import { useParams } from 'react-router-dom';
+import { useQuery } from 'react-query';
+import { TableDataProps } from '..';
 
+// type DataType = {
+// 	price: {
+// 		currency: string;
+// 		longName: string;
+// 		marketCap: number;
+// 		symbol: string;
+// 	};
+// };
 const InfoAboutStock = () => {
+	let { isLoading, isError, data } = useQuery<TableDataProps>('stock-data', getAllStocks);
+	const { symbol } = useParams();
+	const [result, setResult] = useState({});
+	useEffect(() => {
+		const data = stockSearch(symbol!);
+		data.then((res) => setResult(res)).catch((err) => console.log(err));
+	}, [symbol]);
+	console.log(result);
+	const obj = data?.filter((item) => item.symbol === symbol)!;
+	const { industry, volume, lastsale, name, sector, marketCap } = obj[0];
+	console.log(obj);
 	return (
 		<div className={styles.container}>
 			<div className={styles.aboutStock}>
 				<section className={styles.firstSection}>
-					<h3>Apple</h3>
-					<h4>(AAPL)</h4>
+					<h3>{name}</h3>
+					<h4>({obj[0].symbol})</h4>
 				</section>
 				<section className={styles.secondSection}>
 					<section>
 						<h5>MKT CAP</h5>
-						<p>2.224T</p>
+						<p>{parseFloat(marketCap).toLocaleString()}</p>
 					</section>
-					<p>$145.46</p>
+					<p>{lastsale}</p>
 				</section>
 				<section className={styles.thirdSection}>
 					<h6>
@@ -53,23 +76,23 @@ const InfoAboutStock = () => {
 				<h3 className={styles.overViewText}>Key Data</h3>
 				<section>
 					<h4>Sector</h4>
-					<p>Technology</p>
+					<p>{sector}</p>
 				</section>
 				<section>
 					<h4>Industry</h4>
-					<p>Computer Manufacturing</p>
+					<p>{industry}</p>
 				</section>
 				<section>
 					<h4>Share Volume</h4>
-					<p>43,4234,348</p>
+					<p>{parseFloat(volume).toLocaleString()}</p>
 				</section>
 				<section>
 					<h4>Market Cap</h4>
-					<p>234,4234,348</p>
+					<p>{parseFloat(marketCap).toLocaleString()}</p>
 				</section>
 				<section>
 					<h4>Earnings per share</h4>
-					<p>$6.06</p>
+					<p>{lastsale}</p>
 				</section>
 			</div>
 			<div className={styles.stockScore}>
