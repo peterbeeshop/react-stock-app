@@ -4,6 +4,7 @@ import { Watchlist } from '../types/watchlist';
 import * as WatchlistService from '../services/watchlist.services';
 import { userSelectors } from './AuthSlice';
 import { toast } from 'react-toastify';
+import { AxiosError } from 'axios';
 
 // initial state
 interface WatchlistState {
@@ -24,6 +25,11 @@ const slice = createSlice({
 		addToWatchlist: (state, action: PayloadAction<Watchlist>) => {
 			state.watchlist = [...state.watchlist, action.payload];
 		},
+		removeWatchlist: (state, action: PayloadAction<{ data: Watchlist[]; watchlist?: Watchlist }>) => {
+			state.watchlist = action.payload.data.filter((watchlist) => {
+				return watchlist !== action.payload.watchlist;
+			});
+		},
 	},
 });
 
@@ -36,7 +42,6 @@ const createWatchlist = createThunkAction<void, { watchlistName: string; onSucce
 	async ({ watchlistName, onSuccess }, { dispatch, getState }) => {
 		try {
 			const createdWatchlist = await WatchlistService.createWatchlist(watchlistName);
-			console.log('createdWatchlist', createdWatchlist);
 			dispatch(watchlistActions.addToWatchlist(createdWatchlist));
 			onSuccess?.(createdWatchlist._id);
 		} catch (error) {
@@ -60,7 +65,46 @@ const retrieveWatchlist = createThunkAction<void, void>(
 	},
 );
 
-export const watchlistActions = { ...slice.actions, retrieveWatchlist, createWatchlist };
+const addStockToWatchlist = createThunkAction<void, { id: string; stock: string[] }>(
+	'watchlist/add-stock',
+	async ({ id, stock }, { dispatch }) => {
+		try {
+			await WatchlistService.addStockToWatchlist(id, stock);
+			const watchlist = await WatchlistService.getMyWatchlist();
+			dispatch(watchlistActions.setWatchlist(watchlist));
+		} catch (err) {
+			if (err instanceof AxiosError) {
+				toast.error('There was an error adding stocks to this watchlist. Try again!');
+			} else {
+				toast.error('Something went wrong with the servers. Please try again!');
+			}
+		}
+	},
+);
+
+const deleteWatchlist = createThunkAction<void, { id: string; onSuccess?: () => void }>(
+	'watchlist/delete',
+	async ({ id, onSuccess }, { dispatch }) => {
+		try {
+			await WatchlistService.deleteWatchlist(id);
+			onSuccess?.();
+		} catch (err) {
+			if (err instanceof AxiosError) {
+				toast.error('There was an error deleting this watchlist. Try again!');
+			} else {
+				toast.error('Something went wrong with the servers. Please try again!');
+			}
+		}
+	},
+);
+
+export const watchlistActions = {
+	...slice.actions,
+	retrieveWatchlist,
+	createWatchlist,
+	addStockToWatchlist,
+	deleteWatchlist,
+};
 
 export const watchlistSelectors = {
 	selectAllWatchlist: (state: RootState) => state.watchlist.watchlist,

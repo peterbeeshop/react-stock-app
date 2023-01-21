@@ -18,3 +18,11 @@ export const getMyWatchlist = async (): Promise<Watchlist[]> => {
 		})
 	).data;
 };
+
+export const getWatchlistSymbols = async (search: string[]) => {
+	return (await apiClient.post('/search/array', { search })).data;
+};
+
+export const deleteWatchlist = async (id: string) => {
+	return (await apiClient.post('/watchlist/delete', { id })).data;
+};

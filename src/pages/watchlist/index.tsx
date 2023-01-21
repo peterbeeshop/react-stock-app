@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
 import { useNavigate } from 'react-router-dom';
 
@@ -11,9 +11,18 @@ import DialogTitle from '@mui/material/DialogTitle';
 import NotEmpty from './components/NotEmpty/NotEmpty';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { watchlistActions, watchlistSelectors } from '../../store/watchlist';
-import { toast } from 'react-toastify';
+import { getMyWatchlist } from '../../services/watchlist.services';
 
 const Index = () => {
+	const dispatch = useAppDispatch();
+
+	useEffect(() => {
+		const fetchData = async () => {
+			const data = await getMyWatchlist();
+			dispatch(watchlistActions.setWatchlist(data));
+		};
+		fetchData();
+	}, [dispatch]);
 	const myWatchlist = useAppSelector(watchlistSelectors.selectAllWatchlist);
 	return (
 		<>
@@ -57,7 +66,6 @@ export const FormDialog = () => {
 		setOpen(false);
 		const onSuccess = (id: string) => navigate(`/watchlist/${id}/add-stock`);
 		dispatch(watchlistActions.createWatchlist({ watchlistName, onSuccess }));
-		// navigate('/watchlist/add-stock');
 	};
 
 	return (

@@ -26,7 +26,7 @@ const Footer = () => {
 					<p>Plans</p>
 				</section>
 			</div>
-			<h2>Copyright © 2022 Wallstreet finds.</h2>
+			<h2>Copyright © 2023 Wallstreet finds.</h2>
 		</div>
 	);
 };

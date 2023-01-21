@@ -1,23 +1,43 @@
-import React, { forwardRef, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { forwardRef, useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import styles from './index.module.scss';
-import { useAppSelector } from '../../../store/hooks';
-import { watchlistSelectors } from '../../../store/watchlist';
+import { useAppSelector, useAppDispatch } from '../../../store/hooks';
+import { watchlistActions, watchlistSelectors } from '../../../store/watchlist';
 import Button from '@mui/material/Button';
 import { Dialog, DialogContent, DialogContentText, DialogActions } from '@mui/material';
 import { TransitionProps } from '@mui/material/transitions';
 import Slide from '@mui/material/Slide';
+import { getWatchlistSymbols } from '../../../services/watchlist.services';
+import Table from '../../../components/Table';
+import { TableDataProps } from '../../screener';
 
 const SpecificStock = () => {
 	const { id } = useParams();
+	const [result, setResult] = useState<TableDataProps>([]);
 	const specificWatchlist = useAppSelector((state) => watchlistSelectors.selectWatchlistById(state, id!));
-	console.log(specificWatchlist);
-	// watchlistSelectors.selectWatchlistById()
+	useEffect(() => {
+		if (specificWatchlist?.watchlist?.length !== 0) {
+			const data = getWatchlistSymbols(specificWatchlist?.watchlist!);
+			data.then((data) => setResult(data)).catch((err) => console.log(err));
+		}
+	}, [specificWatchlist?.watchlist]);
+	result?.forEach((item) => {
+		item.price = item.lastsale;
+		return item;
+	});
 	return (
 		<div className={styles.container}>
 			<h2>{specificWatchlist?.name}</h2>
 			<DeletePortfolio />
 			<p>Press the + button to add to portfolio</p>
+			{result?.length === 0 ? (
+				<p>This watchlist has no stocks</p>
+			) : (
+				<Table
+					content={result}
+					columns={['name', 'symbol', 'price', 'volume', 'pctchange', 'industry', 'marketCap']}
+				/>
+			)}
 		</div>
 	);
 };
@@ -33,6 +53,10 @@ const Transition = forwardRef(function Transition(
 });
 
 export const DeletePortfolio = () => {
+	const dispatch = useAppDispatch();
+	const navigate = useNavigate();
+	const { id } = useParams();
+
 	const [open, setOpen] = useState(false);
 
 	const handleClickOpen = () => {
@@ -41,6 +65,10 @@ export const DeletePortfolio = () => {
 
 	const handleClose = () => {
 		setOpen(false);
+	};
+
+	const handleDelete = () => {
+		dispatch(watchlistActions.deleteWatchlist({ id: id!, onSuccess: () => navigate('/watchlist') }));
 	};
 
 	return (
@@ -65,7 +93,7 @@ export const DeletePortfolio = () => {
 					<Button style={{ color: '#6FA61A', textTransform: 'capitalize' }} onClick={handleClose}>
 						Close
 					</Button>
-					<Button onClick={handleClose} className={styles.deleteButton}>
+					<Button onClick={handleDelete} className={styles.deleteButton}>
 						Delete
 					</Button>
 				</DialogActions>

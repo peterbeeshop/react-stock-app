@@ -56,10 +56,10 @@ const login = createThunkAction<void, { email: string; password: string; onSucce
 	'users/login',
 	async ({ email, password, onSuccess }, { dispatch }) => {
 		try {
-			const { token, user } = await AuthService.login(email, password);
+			const { token, user_logged } = await AuthService.login(email, password);
 
 			dispatch(userActions.setAuthToken(token));
-			dispatch(userActions.setUser(user));
+			dispatch(userActions.setUser(user_logged));
 			dispatch(watchlistActions.retrieveWatchlist());
 
 			onSuccess?.();

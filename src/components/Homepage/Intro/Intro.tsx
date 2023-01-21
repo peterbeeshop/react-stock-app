@@ -1,25 +1,25 @@
 import styles from './Intro.module.scss';
 import logo from '../../../assets/wallstreet.jpeg';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { getAllStocks } from '../../../services/screener.services';
 import Select, { createFilter, ValueType, OptionTypeBase } from 'react-select';
 import { TableDataProps } from '../../../pages/screener';
-// import VirtualList from 'react-tiny-virtual-list';
+import { useNavigate } from 'react-router-dom';
+import { useQuery } from 'react-query';
+import { FixedSizeList as List } from 'react-window';
 
 const Intro = () => {
-	const [tableData, setTableData] = useState<TableDataProps>([]);
+	let { data } = useQuery<TableDataProps>('stock-data', getAllStocks);
+	const navigate = useNavigate();
 	const [selectedOption, setSelectedOption] = useState<ValueType<OptionTypeBase, false>>();
 
 	useEffect(() => {
-		const stocks = getAllStocks();
-		stocks.then((data) => setTableData(data));
-	}, []);
+		if (selectedOption?.symbol !== undefined) {
+			navigate(`/screener/${selectedOption?.symbol}`);
+		}
+	}, [selectedOption, navigate]);
 
-	useEffect(() => {
-		console.log(selectedOption);
-	}, [selectedOption]);
-
-	const options: OptionTypeBase[] = tableData?.map((stock) => {
+	const options: OptionTypeBase[] | undefined = data?.map((stock) => {
 		stock.value = stock.symbol;
 		stock.label = stock.name;
 		return stock;
@@ -28,6 +28,8 @@ const Intro = () => {
 	const handleChange = (option: ValueType<OptionTypeBase, false>) => {
 		setSelectedOption(option);
 	};
+
+	const memoizedOptions = useMemo(() => options, [options]);
 
 	return (
 		<div className={styles.container}>
@@ -42,8 +44,12 @@ const Intro = () => {
 					<Select
 						placeholder="search for stock or company name..."
 						value={selectedOption}
-						options={options}
+						options={memoizedOptions}
+						onMenuOpen={() => {}}
 						onChange={handleChange}
+						// components={{
+						// 	MenuList: CustomMenuList,
+						// }}
 						isClearable
 						filterOption={createFilter({
 							ignoreAccents: false,
@@ -58,4 +64,29 @@ const Intro = () => {
 	);
 };
 
+export const CustomMenuList = (props: any) => {
+	const itemHeight = 35;
+	const { options, children, maxHeight, getValue } = props;
+	const [value] = getValue();
+	const initialOffset = options.indexOf(value) * itemHeight;
+
+	const memoizedOptions = useMemo(() => options, [options]);
+
+	return (
+		<div>
+			<List
+				height={maxHeight}
+				itemCount={memoizedOptions.length}
+				itemSize={itemHeight}
+				initialScrollOffset={initialOffset}
+			>
+				{({ index, style }: any) => (
+					<div className={styles.customMenu} key={memoizedOptions[index].value} style={style}>
+						{children[index]}
+					</div>
+				)}
+			</List>
+		</div>
+	);
+};
 export default Intro;

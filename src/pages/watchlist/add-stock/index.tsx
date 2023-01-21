@@ -8,8 +8,11 @@ import { getAllStocks } from '../../../services/screener.services';
 import { TableDataProps } from '../../screener';
 import { addStockToWatchlist } from '../../../services/watchlist.services';
 import { toast } from 'react-toastify';
+import { watchlistActions } from '../../../store/watchlist';
+import { useAppDispatch } from '../../../store/hooks';
 
 const AddStock = () => {
+	const dispatch = useAppDispatch();
 	let { id } = useParams();
 	const navigate = useNavigate();
 	const [tableData, setTableData] = useState<TableDataProps>([]);
@@ -53,7 +56,8 @@ const AddStock = () => {
 			return item !== undefined;
 		});
 		if (newArr.length !== 0) {
-			addStockToWatchlist(id!, newArr);
+			dispatch(watchlistActions.addStockToWatchlist({ id: id!, stock: newArr }));
+			// addStockToWatchlist(id!, newArr);
 			navigate(`/watchlist/${id}`);
 		} else {
 			toast.error('Watchlist must contain atleast one stock!');

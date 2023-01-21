@@ -18,6 +18,7 @@ import WatchlistSpecificStock from '../src/pages/watchlist/specific-stock';
 import PortfilioSpecificStock from '../src/pages/portfolio/specific-stock';
 import Subscription from '../src/pages/subscription';
 import PageNotFound from '../src/pages/PageNotFound';
+import InfoAboutStock from '../src/pages/screener/infoAboutStock';
 function App() {
 	return (
 		<>
@@ -32,6 +33,7 @@ function App() {
 				<Route path="/news" element={<News />} />
 				<Route path="/subscription" element={<Subscription />} />
 				<Route path="/screener" element={<Screener />} />
+				<Route path="/screener/:symbol" element={<InfoAboutStock />} />
 				<Route path="/portfolio" element={<Portfolio />} />
 				<Route path="/watchlist" element={<Watchlist />} />
 				<Route path="/watchlist/:id/add-stock" element={<WatchlistAddStock />} />
