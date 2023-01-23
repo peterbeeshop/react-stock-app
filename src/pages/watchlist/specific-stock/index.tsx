@@ -10,19 +10,28 @@ import Slide from '@mui/material/Slide';
 import { getWatchlistSymbols } from '../../../services/watchlist.services';
 import Table from '../../../components/Table';
 import { TableDataProps } from '../../screener';
+import { useQuery } from 'react-query';
+import { getAllStocks } from '../../../services/screener.services';
 
 const SpecificStock = () => {
 	const { id } = useParams();
-	const [result, setResult] = useState<TableDataProps>([]);
+	let { data } = useQuery<TableDataProps>('stock-data', getAllStocks);
+	// const [result, setResult] = useState<TableDataProps>([]);
 	const specificWatchlist = useAppSelector((state) => watchlistSelectors.selectWatchlistById(state, id!));
-	useEffect(() => {
-		if (specificWatchlist?.watchlist?.length !== 0) {
-			const data = getWatchlistSymbols(specificWatchlist?.watchlist!);
-			data.then((data) => setResult(data)).catch((err) => console.log(err));
-		}
-	}, [specificWatchlist?.watchlist]);
+
+	let result = data?.filter((item) => {
+		return specificWatchlist?.watchlist?.includes(item.symbol);
+	});
+	// useEffect(() => {
+	// 	if (specificWatchlist?.watchlist?.length !== 0) {
+	// 		const data = getWatchlistSymbols(specificWatchlist?.watchlist!);
+	// 		data.then((data) => setResult(data)).catch((err) => console.log(err));
+	// 	}
+	// }, [specificWatchlist?.watchlist]);
 	result?.forEach((item) => {
 		item.price = item.lastsale;
+		item.marketCap = parseFloat(item.marketCap).toLocaleString();
+		item.volume = parseFloat(item.volume).toLocaleString();
 		return item;
 	});
 	return (
