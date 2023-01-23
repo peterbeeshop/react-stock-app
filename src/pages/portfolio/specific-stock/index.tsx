@@ -63,6 +63,7 @@ const Index = () => {
 			<Table
 				content={tableData}
 				columns={['Company name', 'price($)', 'MKT cap', 'expected return - 5 years', 'industry', 'Score']}
+				count={tableData.length}
 			/>
 
 			<h3 className={styles.news}>News</h3>

@@ -87,6 +87,7 @@ const Index = () => {
 				<Table
 					content={data}
 					columns={['name', 'symbol', 'price', 'volume', 'pctchange', 'industry', 'marketCap']}
+					count={data?.length!}
 				/>
 			)}
 		</div>

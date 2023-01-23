@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useState } from 'react';
+import React, { forwardRef, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import styles from './index.module.scss';
 import { useAppSelector, useAppDispatch } from '../../../store/hooks';
@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 import { Dialog, DialogContent, DialogContentText, DialogActions } from '@mui/material';
 import { TransitionProps } from '@mui/material/transitions';
 import Slide from '@mui/material/Slide';
-import { getWatchlistSymbols } from '../../../services/watchlist.services';
+// import { getWatchlistSymbols } from '../../../services/watchlist.services';
 import Table from '../../../components/Table';
 import { TableDataProps } from '../../screener';
 import { useQuery } from 'react-query';
@@ -30,8 +30,8 @@ const SpecificStock = () => {
 	// }, [specificWatchlist?.watchlist]);
 	result?.forEach((item) => {
 		item.price = item.lastsale;
-		item.marketCap = parseFloat(item.marketCap).toLocaleString();
-		item.volume = parseFloat(item.volume).toLocaleString();
+		// item.marketCap = parseFloat(item.marketCap).toLocaleString();
+		// item.volume = parseFloat(item.volume).toLocaleString();
 		return item;
 	});
 	return (
@@ -45,6 +45,7 @@ const SpecificStock = () => {
 				<Table
 					content={result}
 					columns={['name', 'symbol', 'price', 'volume', 'pctchange', 'industry', 'marketCap']}
+					count={result?.length!}
 				/>
 			)}
 		</div>

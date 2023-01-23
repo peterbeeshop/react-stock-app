@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 interface TableProps<TData> {
 	content?: TData[];
 	columns: (keyof TData)[];
+	count: number;
 }
 
 type DataProps = {
@@ -64,7 +65,7 @@ const Table = <TData extends DataProps>(props: TableProps<TData>) => {
 			<TablePagination
 				rowsPerPageOptions={[10, 25, 50, 75, 100]}
 				component="div"
-				count={props.content!.length}
+				count={props.count}
 				rowsPerPage={rowsPerPage}
 				page={page}
 				onPageChange={handleChangePage}
