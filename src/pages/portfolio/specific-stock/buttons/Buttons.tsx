@@ -156,7 +156,8 @@ export const AddStock = () => {
 					PaperProps={{ style: { backgroundColor: '#536069', width: '100%' } }}
 				>
 					<DialogContent>
-						<TextInputs />
+						{/* <TextInputs /> */}
+						<h2>commented out textInputs</h2>
 					</DialogContent>
 					<DialogActions>
 						<Button style={{ color: '#6FA61A' }} onClick={handleClose}>

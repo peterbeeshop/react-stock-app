@@ -14,11 +14,13 @@ import persistStore from 'redux-persist/es/persistStore';
 import { FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
 import userReducer from './AuthSlice';
 import watchlistReducer from './watchlist';
+import portfolioReducer from './portfolio';
 
 const reducers = combineReducers({
 	router: connectRouter(history) as Reducer<RouterState, AnyAction>,
 	user: userReducer,
 	watchlist: watchlistReducer,
+	portfolio: portfolioReducer,
 });
 
 /**

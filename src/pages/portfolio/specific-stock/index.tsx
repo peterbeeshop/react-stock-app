@@ -4,8 +4,15 @@ import { DeletePortfolio, RenamePortfolio, AddStock } from './buttons/Buttons';
 import Table from '../../../components/Table';
 import { getAllStocks } from '../../../services/screener.services';
 import { useEffect } from 'react';
-
+import { viewPortfolio } from '../../../services/portfolio.services';
+import { useParams } from 'react-router-dom';
 const Index = () => {
+	const { id } = useParams();
+
+	useEffect(() => {
+		const data = viewPortfolio(id!);
+		data.then((json) => console.log(json));
+	});
 	const tableData = [
 		{
 			'Company name': 'stock',
@@ -42,13 +49,13 @@ const Index = () => {
 		},
 	];
 
-	useEffect(() => {
-		const getStocks = async () => {
-			const stocks = await getAllStocks();
-			console.log(stocks);
-		};
-		getStocks();
-	}, []);
+	// useEffect(() => {
+	// 	const getStocks = async () => {
+	// 		const stocks = await getAllStocks();
+	// 		console.log(stocks);
+	// 	};
+	// 	getStocks();
+	// }, []);
 	// const listOfStocks = getAllStocks()
 	// listOfStocks.then(data => console.log(data)).catch(err => console.log(err))
 

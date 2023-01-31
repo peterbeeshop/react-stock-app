@@ -57,7 +57,6 @@ const AddStock = () => {
 		});
 		if (newArr.length !== 0) {
 			dispatch(watchlistActions.addStockToWatchlist({ id: id!, stock: newArr }));
-			// addStockToWatchlist(id!, newArr);
 			navigate(`/watchlist/${id}`);
 		} else {
 			toast.error('Watchlist must contain atleast one stock!');

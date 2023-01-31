@@ -1,6 +1,6 @@
-import { useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import styles from '../watchlist/index.module.scss';
-import NotEmpty from '../watchlist/components/NotEmpty/NotEmpty';
+import NotEmpty from './components/NotEmpty/index';
 import { useNavigate } from 'react-router-dom';
 
 import Button from '@mui/material/Button';
@@ -9,13 +9,25 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
+import { portfolioActions, portfolioSelectors } from '../../store/portfolio';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { getMyPortfolio } from '../../services/portfolio.services';
 
 const Index = () => {
-	const isPortfolioListEmpty = true;
+	const dispatch = useAppDispatch();
+
+	useEffect(() => {
+		const fetchData = async () => {
+			const data = await getMyPortfolio();
+			dispatch(portfolioActions.setPortfolio(data));
+		};
+		fetchData();
+	}, [dispatch]);
+	const myPortfolio = useAppSelector(portfolioSelectors.selectAllPortfolio);
 
 	return (
 		<>
-			{isPortfolioListEmpty ? (
+			{myPortfolio.length === 0 ? (
 				<div className={styles.IsEmptyContainer}>
 					<h2>
 						Your portfolio list is <br /> currently empty
@@ -36,10 +48,10 @@ const Index = () => {
 export default Index;
 
 export const FormDialog = () => {
+	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
 	const [open, setOpen] = useState(false);
-	const [text, setText] = useState('');
-	const valueRef = useRef('');
+	const [portfolioName, setPortfolioName] = useState<string>('');
 
 	const handleClickOpen = () => {
 		setOpen(true);
@@ -50,8 +62,10 @@ export const FormDialog = () => {
 	};
 
 	const handleSubmit = () => {
-		setText(valueRef.current.valueOf);
-		navigate('/portfolio/add-stock');
+		// navigate('/portfolio/add-stock');
+		setOpen(false);
+		const onSuccess = (id: string) => navigate(`/portfolio/${id}/add-stock`);
+		dispatch(portfolioActions.createPortfolio({ portfolioName, onSuccess }));
 	};
 
 	return (
@@ -63,7 +77,7 @@ export const FormDialog = () => {
 				<DialogTitle style={{ paddingRight: '300px' }}>Create a new portfolio</DialogTitle>
 				<DialogContent>
 					<TextField
-						inputRef={valueRef}
+						onChange={(e) => setPortfolioName(e.target.value)}
 						autoFocus
 						margin="dense"
 						required
@@ -78,9 +92,15 @@ export const FormDialog = () => {
 					<Button style={{ color: '#6FA61A' }} onClick={handleClose}>
 						Cancel
 					</Button>
-					<Button className={styles.submitButton} onClick={handleSubmit}>
-						Create
-					</Button>
+					{portfolioName?.length === 0 ? (
+						<Button variant="contained" disabled>
+							Create
+						</Button>
+					) : (
+						<Button className={styles.submitButton} onClick={handleSubmit}>
+							Create
+						</Button>
+					)}
 				</DialogActions>
 			</Dialog>
 		</div>

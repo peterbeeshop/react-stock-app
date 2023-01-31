@@ -38,8 +38,8 @@ function App() {
 				<Route path="/watchlist" element={<Watchlist />} />
 				<Route path="/watchlist/:id/add-stock" element={<WatchlistAddStock />} />
 				<Route path="/watchlist/:id" element={<WatchlistSpecificStock />} />
-				<Route path="/portfolio/add-stock" element={<PortfolioAddStock />} />
-				<Route path="/portfolio/specific-stock" element={<PortfilioSpecificStock />} />
+				<Route path="/portfolio/:id/add-stock" element={<PortfolioAddStock />} />
+				<Route path="/portfolio/:id" element={<PortfilioSpecificStock />} />
 				<Route path="*" element={<PageNotFound />} />
 			</Routes>
 			<Footer />
