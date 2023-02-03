@@ -31,6 +31,17 @@
         margin-top: 30px;
         color: $light-text;
     }
+    @media screen and (max-width: 768px) {
+        padding: 0;
+
+        h2 {
+            margin-left: 20px;
+        }
+        .input {
+            width: 90%;
+            margin-left: 20px;
+        }
+    }
 }
 
 .dropdown {

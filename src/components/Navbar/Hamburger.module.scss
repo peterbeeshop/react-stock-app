@@ -1,0 +1,41 @@
+@import '../../assets/global-styles/theme.scss';
+
+.container {
+  @keyframes example {
+    from {width: 10%;}
+    to {width: 60%;}
+  }
+  .isOpen {
+    animation-name: example;
+    animation-duration: 1s;
+  }
+  ul {
+      background-color: #434E56;
+      height: 100%;
+      width: 60%;
+      z-index: 1;
+      margin-top: -0px;
+      list-style: none;
+
+      li {
+          margin-left: -8px;
+          margin-top: 30px;
+          font-size: 18px;
+          color: $light-text;
+      }
+  }
+
+  .closeButton {
+    margin-top: 15px;
+    margin-left: -16px;
+  }
+}
+
+.user {
+  margin-top: 50px;
+  margin-bottom: 40px;
+}
+
+.button {
+  width: 100px;
+}

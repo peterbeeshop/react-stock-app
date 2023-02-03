@@ -11,6 +11,12 @@
     h2 {
         color: $light-text;
     }
+
+    @media screen and (max-width: 768px) {
+        h2 {
+            display: none;
+        }
+    }
 }
 
 .cardContainer {
@@ -25,7 +31,11 @@
 
     h3 {
         font-weight: 500;
-    }    
+    }
+    @media screen and (max-width: 768px) {
+        width: 90%;
+        margin-top: -60px;
+    } 
 }
 
 .innerContainer {
@@ -38,12 +48,21 @@
         margin-bottom: -5px;
     }
 
+    input {
+        margin: 15px 0;
+        height: 50px;
+        border: 1px solid #5C6A79;
+        border-radius: 10px;
+        padding-left: 20px;
+        color: $deemphasized-text-color;
+    }
+
+    @media screen and (max-width: 768px) {
         input {
-            margin: 15px 0;
-            height: 50px;
-            border: 1px solid #5C6A79;
-            border-radius: 10px;
-            padding-left: 20px;
-            color: $deemphasized-text-color;
+            height: 40px;
         }
+        input:focus {
+            outline: none;
+        }
+    }
 }

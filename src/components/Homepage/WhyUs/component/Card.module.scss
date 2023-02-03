@@ -14,4 +14,13 @@
         align-items: center;
         color: $light-text;
     }
+
+    @media screen and (max-width: 768px) {
+        width: 100%;
+        margin-bottom: 30px;
+        
+        h4 {
+            font-size: 20px;
+        }
+    }
 }

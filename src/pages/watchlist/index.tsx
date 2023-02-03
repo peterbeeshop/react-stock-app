@@ -70,9 +70,11 @@ export const FormDialog = () => {
 
 	return (
 		<div>
-			<Button className={styles.button} variant="contained" onClick={handleClickOpen}>
-				Create new watchlist
-			</Button>
+			<div className={styles.createWatchlistBtn}>
+				<Button className={styles.button} variant="contained" onClick={handleClickOpen}>
+					Create new watchlist
+				</Button>
+			</div>
 			<Dialog open={open} onClose={handleClose}>
 				<DialogTitle style={{ paddingRight: '300px' }}>Create new watchlist</DialogTitle>
 				<DialogContent>

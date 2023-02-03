@@ -27,6 +27,22 @@
         color: #d4d4d4;
         cursor: pointer;
     }
+
+    @media screen and (max-width: 768px) {
+        .innerContainer {
+            display: flex;
+            flex-direction: column;
+        }
+
+        h5 {
+            margin-top: 40px;
+        }
+
+        h2 {
+            font-size: 18px;
+            font-weight: 400;
+        }
+    }
 }
 
 .imageContainer {
@@ -35,5 +51,10 @@
 
     .image {
         cursor: pointer;
+    }
+    @media screen and (max-width: 768px) {
+        display: flex;
+        flex-direction: row;
+        width: 60%;
     }
 }

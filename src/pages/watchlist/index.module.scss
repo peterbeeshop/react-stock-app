@@ -17,16 +17,29 @@
     }
 }
 
-
+.createWatchlistBtn {
+    @media screen and (max-width: 768px) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 300px;
+    }
+}
 .button {
     background-color: $primary-color !important;
     width: 100% !important;
-    font-size: $font-20;
-    margin-top: 20px;
+    font-size: 16px;
     border-radius: 12px !important;
-    padding: 10px 150px !important;
+    padding: 10px 100px !important;
     margin-top: 20px !important;
     height: 55px;
+
+    @media screen and (max-width: 768px) {
+        font-size: 16px !important;
+        padding: 0 0 !important;
+        width: 200% !important;
+        margin: 0 auto !important;
+    }
 }
 
 .submitButton {

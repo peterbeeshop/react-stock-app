@@ -13,6 +13,15 @@
     p {
         color: $light-text;
     }
+
+    @media screen and (max-width: 768px) {
+        h2 {
+            display: none;
+        }
+        p {
+            font-size: 14px;
+        }
+    }
 }
 .card {
     background-color: $card;
@@ -35,6 +44,9 @@
         color: $deemphasized-text-color;
     }
 
+    input:focus {
+        outline: none;
+    }
     .forgotPassword {
         color: $deemphasized-text-color;
         margin-top: 10px;
@@ -51,6 +63,19 @@
         }
         .link {
             color: $primary-color;
+        }
+    }
+    @media screen and (max-width: 768px) {
+        width: 90%;
+
+        input {
+            height: 36px;
+        }
+        section {
+            margin-bottom: 40px;
+            p {
+                font-size: 14px;
+            }
         }
     }
 }

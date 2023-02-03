@@ -2,6 +2,10 @@
 
 .container {
     padding: 0 10%;
+
+    @media screen and (max-width: 768px) {
+        padding: 0 5%;
+    }
 }
 
 .aboutStock {
@@ -10,16 +14,31 @@
     display: flex;
     justify-content: space-between;
     background-color: #474D59 ;
+
+    @media screen and (max-width: 768px) {
+        display: flex;
+        flex-direction: column;
+    }
     
 }
 
 .firstSection {
     h3 {
         color: $light-text;
+        
     }
     h4 {
         color: $light-text;
         font-weight: 400;
+    }
+    @media screen and (max-width: 768px) {
+        h3 {
+            font-size: 16px;
+        }
+        h4 {
+            font-size: 16px;
+            margin-top: -10px;
+        }
     }
 }
 .secondSection {
@@ -38,6 +57,14 @@
         color: $light-text;
 
     }
+
+    @media screen and (max-width: 768px) {
+        border-left: 3px solid #0FB029;
+        border-right: none;
+        p {
+            text-align: start;
+        }
+    }
 }
 .thirdSection {
     border-right: 3px solid $primary-color;
@@ -47,6 +74,12 @@
         color: #ffffff;
         display: flex;
         align-items: center;
+    }
+    @media screen and (max-width: 768px) {
+        margin-top: 15px;
+        border-left: 3px solid #0FB029;
+        border-right: none;
+
     }
 }
 
@@ -75,6 +108,19 @@
         width: 80%;
         color: #D4D4D4;
         font-weight: 200;
+    }
+
+    @media screen and (max-width: 768px) {
+        display: flex;
+        flex-direction: column;
+
+        .section {
+            width: 100%;
+            padding-left: 0px;
+        }
+        .stockDetails {
+            width: 100%;
+        }
     }
 }
 

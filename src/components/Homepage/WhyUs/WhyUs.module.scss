@@ -12,10 +12,21 @@
         color: $light-text;
         margin-top: 10px;
     }
+    @media screen and (max-width: 768px) {
+        padding-bottom: 50px;
+        h1 {
+            font-size: 34px;
+            margin-bottom: 30px;
+        }
+    }
 }
 
 .cardContainer {
     display: flex;
     justify-content: space-between;
     
+    @media screen and (max-width: 768px) {
+        display: flex;
+        flex-direction: column;
+    }
 }

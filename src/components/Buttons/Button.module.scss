@@ -7,4 +7,9 @@
     border: 1px solid transparent;
     border-radius: 10px;
     cursor: pointer;
+    font-weight: 600;
+
+    @media screen and (max-width: 768px) {
+        height: 38px;
+    }    
 }

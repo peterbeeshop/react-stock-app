@@ -3,8 +3,11 @@ import Button from '../Buttons/Button';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { userActions, userSelectors } from '../../store/AuthSlice';
 import { Link, useNavigate } from 'react-router-dom';
+import { useMediaQuery } from '@mui/material';
+import Hamburger from './Hamburger';
 
 const Navbar = () => {
+	const screenSize = useMediaQuery('(max-width: 768px)');
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 	const isUserLoggedIn = useAppSelector(userSelectors.selectIsUserLoggedIn);
@@ -14,6 +17,16 @@ const Navbar = () => {
 		navigate('/login');
 		dispatch(userActions.logout());
 	};
+	if (screenSize) {
+		return (
+			<div className={styles.mobile}>
+				<Hamburger isUserLoggedIn={isUserLoggedIn} />
+				<Link to="/">
+					<h2>WALLSTREET FINDS</h2>
+				</Link>
+			</div>
+		);
+	}
 	return (
 		<div className={styles.container}>
 			<Link to="/">

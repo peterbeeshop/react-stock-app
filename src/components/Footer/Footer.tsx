@@ -7,7 +7,7 @@ import youtubeLogo from '../../assets/svgs/icons/youtube_icon.svg';
 const Footer = () => {
 	return (
 		<div className={styles.container}>
-			<div>
+			<div className={styles.innerContainer}>
 				<section>
 					<img src={logo} alt="logo" width={260} />
 				</section>
