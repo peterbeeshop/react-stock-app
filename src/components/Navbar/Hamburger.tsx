@@ -35,19 +35,19 @@ const HamburgerMenu = ({ isUserLoggedIn }: HamburgerMenuProps) => {
 						className={styles.closeButton}
 					/>
 					<Link to="/plans">
-						<li>Plans</li>
+						<li onClick={() => setIsOpen(false)}>Plans</li>
 					</Link>
 					<Link to="/screener">
-						<li>Screener</li>
+						<li onClick={() => setIsOpen(false)}>Screener</li>
 					</Link>
 					<Link to="/news">
-						<li>News</li>
+						<li onClick={() => setIsOpen(false)}>News</li>
 					</Link>
 					<Link to="/watchlist">
-						<li>Watchlist</li>
+						<li onClick={() => setIsOpen(false)}>Watchlist</li>
 					</Link>
 					<Link to="/portfolio">
-						<li>Portfolio</li>
+						<li onClick={() => setIsOpen(false)}>Portfolio</li>
 					</Link>
 					{isUserLoggedIn ? (
 						<>
@@ -55,12 +55,12 @@ const HamburgerMenu = ({ isUserLoggedIn }: HamburgerMenuProps) => {
 							<Button name="Logout" className={styles.button} onClick={onLogout} />
 						</>
 					) : (
-						<>
+						<div className={styles.btnContainer}>
 							<Link to="/login">Sign in</Link>
 							<Link to="/sign-up">
 								<Button name="Sign up" className={styles.button} />
 							</Link>
-						</>
+						</div>
 					)}
 				</ul>
 			)}

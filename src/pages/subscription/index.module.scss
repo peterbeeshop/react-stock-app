@@ -3,7 +3,7 @@
 
 .container {
 
-    width: 35%;
+    width: 45%;
     margin: 0 auto;
 
     h2 {
@@ -15,6 +15,10 @@
     h3 {
         color: #d4d4d4;
         text-align: center;
+    }
+
+    @media screen and (max-width: 768px) {
+        width: 100%;
     }
 }
 
@@ -58,11 +62,17 @@
         margin-bottom: 5px;
         cursor: pointer;
     }
+
+    @media screen and (max-width: 768px) {
+        width: 90%;
+        margin-bottom: 50px;
+    }
 }
 
 .text {
     color: $light-text;
-    font-size: 10px;
+    font-size: 14px;
     text-align: center;
-    padding-bottom: 15px;
+    padding-bottom: 25px;
+
 }

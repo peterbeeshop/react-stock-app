@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from '../index.module.scss';
-
+import myStyles from './index.module.scss';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -89,8 +89,13 @@ const Dropdown = ({ data, refetch }: DropDownProps) => {
 				</Select>
 			</FormControl> */}
 
-				<FormControl sx={{ m: 1, minWidth: 120, width: 400 }}>
-					<InputLabel id="demo-simple-select-helper-label">Industry</InputLabel>
+				<FormControl className={myStyles.formControl} sx={{ m: 1, minWidth: 120, width: 400 }}>
+					<InputLabel
+						sx={{ color: 'white', fontWeight: 500, fontSize: '16px', marginTop: '-35px' }}
+						id="demo-simple-select-helper-label"
+					>
+						Industry
+					</InputLabel>
 					<Select
 						labelId="demo-simple-select-helper-label"
 						id="demo-simple-select-helper"
@@ -112,8 +117,13 @@ const Dropdown = ({ data, refetch }: DropDownProps) => {
 					</Select>
 				</FormControl>
 
-				<FormControl sx={{ m: 1, minWidth: 120, width: 250 }}>
-					<InputLabel id="demo-simple-select-helper-label">Score</InputLabel>
+				<FormControl className={myStyles.formControl} sx={{ m: 1, minWidth: 120, width: 250 }}>
+					<InputLabel
+						sx={{ color: 'white', fontWeight: 500, fontSize: '16px', marginTop: '-35px' }}
+						id="demo-simple-select-helper-label"
+					>
+						Score
+					</InputLabel>
 					<Select
 						labelId="demo-simple-select-helper-label"
 						id="demo-simple-select-helper"
@@ -133,8 +143,13 @@ const Dropdown = ({ data, refetch }: DropDownProps) => {
 					</Select>
 				</FormControl>
 
-				<FormControl sx={{ m: 1, minWidth: 120, width: 250 }}>
-					<InputLabel id="demo-simple-select-helper-label">Price</InputLabel>
+				<FormControl className={myStyles.formControl} sx={{ m: 1, minWidth: 120, width: 250 }}>
+					<InputLabel
+						sx={{ color: 'white', fontWeight: 500, fontSize: '20px', marginTop: '-10px' }}
+						id="demo-simple-select-helper-label"
+					>
+						Price
+					</InputLabel>
 					<Select
 						labelId="demo-simple-select-helper-label"
 						id="demo-simple-select-helper"
@@ -155,8 +170,13 @@ const Dropdown = ({ data, refetch }: DropDownProps) => {
 					</Select>
 				</FormControl>
 
-				<FormControl sx={{ m: 1, minWidth: 120, width: 250 }}>
-					<InputLabel id="demo-simple-select-helper-label">Marktet cap</InputLabel>
+				<FormControl className={myStyles.formControl} sx={{ m: 1, minWidth: 120, width: 250 }}>
+					<InputLabel
+						sx={{ color: 'white', fontWeight: 500, fontSize: '20px', marginTop: '-10px' }}
+						id="demo-simple-select-helper-label"
+					>
+						Marktet cap
+					</InputLabel>
 					<Select
 						labelId="demo-simple-select-helper-label"
 						id="demo-simple-select-helper"
@@ -177,8 +197,13 @@ const Dropdown = ({ data, refetch }: DropDownProps) => {
 					</Select>
 				</FormControl>
 
-				<FormControl sx={{ m: 1, minWidth: 120, width: 250 }}>
-					<InputLabel id="demo-simple-select-helper-label">Volume</InputLabel>
+				<FormControl className={myStyles.formControl} sx={{ m: 1, minWidth: 120, width: 250 }}>
+					<InputLabel
+						sx={{ color: 'white', fontWeight: 500, fontSize: '20px', marginTop: '-10px' }}
+						id="demo-simple-select-helper-label"
+					>
+						Volume
+					</InputLabel>
 					<Select
 						labelId="demo-simple-select-helper-label"
 						id="demo-simple-select-helper"

@@ -1,0 +1,16 @@
+
+
+.formControl {
+    margin-top: 25px;
+    @media screen and (max-width: 768px) {
+        width: 90%;
+        margin: 0 auto;
+        margin-top: 35px;
+        
+    }
+    #demo-simple-select-helper-label {
+        @media screen and (max-width: 768px) {
+            color: aquamarine !important;
+        }
+    }
+}

@@ -5,6 +5,7 @@
     from {width: 10%;}
     to {width: 60%;}
   }
+
   .isOpen {
     animation-name: example;
     animation-duration: 1s;
@@ -13,7 +14,7 @@
       background-color: #434E56;
       height: 100%;
       width: 60%;
-      z-index: 1;
+      z-index: 9999;
       margin-top: -0px;
       list-style: none;
 
@@ -23,6 +24,16 @@
           font-size: 18px;
           color: $light-text;
       }
+  }
+
+  .btnContainer {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+
+    .button {
+      margin-top: 20px;
+    }
   }
 
   .closeButton {

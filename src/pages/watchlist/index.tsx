@@ -75,8 +75,8 @@ export const FormDialog = () => {
 					Create new watchlist
 				</Button>
 			</div>
-			<Dialog open={open} onClose={handleClose}>
-				<DialogTitle style={{ paddingRight: '300px' }}>Create new watchlist</DialogTitle>
+			<Dialog fullWidth open={open} onClose={handleClose}>
+				<DialogTitle className={styles.title}>Create new watchlist</DialogTitle>
 				<DialogContent>
 					<TextField
 						onChange={(e) => setWatchlistName(e.target.value)}

@@ -52,6 +52,14 @@ const TextInputs = ({ symbol, numberOfShares, averagePurchasePrice }: TextInputs
 			<Select
 				className={styles.selectTag}
 				placeholder="search for stock or company name..."
+				styles={{
+					container: (base: any) => ({
+						...base,
+						width: '90%',
+						zIndex: 9999,
+						marginBottom: '15px',
+					}),
+				}}
 				value={selectedOption1}
 				options={options}
 				onChange={handleChange1}
@@ -60,15 +68,6 @@ const TextInputs = ({ symbol, numberOfShares, averagePurchasePrice }: TextInputs
 					ignoreAccents: false,
 				})}
 			/>
-			{/* <TextField
-				onChange={(e) => symbol(e.target.value)}
-				sx={{ backgroundColor: '#F5F9FD', borderRadius: 2 }}
-				id="standard-search"
-				className={styles.standardSearch}
-				label="Enter stock symbol  (e.g. APPL, TSLA)"
-				type="search"
-				variant="filled"
-			/> */}
 			<TextField
 				onChange={(e) => numberOfShares(e.target.value)}
 				id="outlined-basic"

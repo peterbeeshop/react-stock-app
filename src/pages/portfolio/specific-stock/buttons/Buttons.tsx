@@ -1,18 +1,19 @@
 import { useState, useRef, forwardRef } from 'react';
 import styles from '../index.module.scss';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import Box from '@mui/material/Box';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 import { TransitionProps } from '@mui/material/transitions';
 import TextInputs from '../../add-stock/TextInputs';
+import { useAppDispatch } from '../../../../store/hooks';
+import { portfolioActions } from '../../../../store/portfolio';
 
 //rename button
 export const RenamePortfolio = () => {
@@ -43,8 +44,9 @@ export const RenamePortfolio = () => {
 				open={open}
 				onClose={handleClose}
 				PaperProps={{ style: { backgroundColor: '#536069', width: '100%' } }}
+				fullWidth
 			>
-				<DialogTitle style={{ paddingRight: '300px' }}>Rename this portfolio</DialogTitle>
+				<DialogTitle>Rename this portfolio</DialogTitle>
 				<DialogContent>
 					<TextField
 						inputRef={valueRef}
@@ -126,10 +128,13 @@ export const DeletePortfolio = () => {
 
 //add stock button
 export const AddStock = () => {
+	const dispatch = useAppDispatch();
+	let { id } = useParams();
 	const navigate = useNavigate();
 	const [open, setOpen] = useState(false);
-	const [text, setText] = useState('');
-	const valueRef = useRef('');
+	const [symbol, setSymbol] = useState('');
+	const [averagePrice, setAveragePrice] = useState('');
+	const [numberOfShares, setNumberOfShares] = useState('');
 
 	const handleClickOpen = () => {
 		setOpen(true);
@@ -140,8 +145,10 @@ export const AddStock = () => {
 	};
 
 	const handleSubmit = () => {
-		setText(valueRef.current.valueOf);
-		navigate('/portfolio/specific-stock');
+		dispatch(
+			portfolioActions.addStockToPortfolio({ id: id!, symbol, shares: numberOfShares, price: averagePrice }),
+		);
+		navigate(`/portfolio/${id}`);
 	};
 
 	return (
@@ -149,16 +156,17 @@ export const AddStock = () => {
 			<Button className={styles.addStockButton} variant="contained" onClick={handleClickOpen}>
 				Add stock
 			</Button>
-			<div style={{ background: 'blue' }}>
+			<div>
 				<Dialog
 					open={open}
 					onClose={handleClose}
 					PaperProps={{ style: { backgroundColor: '#536069', width: '100%' } }}
 				>
-					<DialogContent>
-						{/* <TextInputs /> */}
-						<h2>commented out textInputs</h2>
-					</DialogContent>
+					<TextInputs
+						symbol={setSymbol}
+						averagePurchasePrice={setAveragePrice}
+						numberOfShares={setNumberOfShares}
+					/>
 					<DialogActions>
 						<Button style={{ color: '#6FA61A' }} onClick={handleClose}>
 							Cancel

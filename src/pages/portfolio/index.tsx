@@ -75,8 +75,8 @@ export const FormDialog = () => {
 					Create new portfolio
 				</Button>
 			</div>
-			<Dialog open={open} onClose={handleClose}>
-				<DialogTitle style={{ paddingRight: '300px' }}>Create a new portfolio</DialogTitle>
+			<Dialog fullWidth open={open} onClose={handleClose}>
+				<DialogTitle>Create a new portfolio</DialogTitle>
 				<DialogContent>
 					<TextField
 						onChange={(e) => setPortfolioName(e.target.value)}
