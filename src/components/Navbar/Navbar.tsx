@@ -5,18 +5,42 @@ import { userActions, userSelectors } from '../../store/AuthSlice';
 import { Link, useNavigate } from 'react-router-dom';
 import { useMediaQuery } from '@mui/material';
 import Hamburger from './Hamburger';
+import { useCallback, useEffect } from 'react';
+import jwtDecode, { JwtPayload } from 'jwt-decode';
+import { toast } from 'react-toastify';
 
 const Navbar = () => {
 	const screenSize = useMediaQuery('(max-width: 768px)');
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 	const isUserLoggedIn = useAppSelector(userSelectors.selectIsUserLoggedIn);
+	const token = useAppSelector(userSelectors.selectAuthToken);
 	const user = useAppSelector(userSelectors.selectAuthState);
 
-	const onLogout = () => {
+	const onLogout = useCallback(() => {
 		navigate('/login');
 		dispatch(userActions.logout());
+	}, [dispatch, navigate]);
+
+	const checkExpired = (token: string) => {
+		const decoded = jwtDecode<JwtPayload>(token);
+		const currentTime = Math.floor(Date.now() / 1000);
+		return currentTime > decoded.exp!;
 	};
+
+	useEffect(() => {
+		if (token !== undefined) {
+			const expired = checkExpired(token!);
+			if (expired) {
+				setTimeout(() => {
+					dispatch(userActions.resetState());
+					navigate('/login');
+					toast.error('Session has expired. Please login again!');
+				}, 0);
+			}
+		}
+	}, [token, dispatch, navigate]);
+
 	if (screenSize) {
 		return (
 			<div className={styles.mobile}>
@@ -53,7 +77,7 @@ const Navbar = () => {
 			<div className={styles.buttonContainer}>
 				{isUserLoggedIn ? (
 					<>
-						<p>Hi,{user?.firstname} </p>
+						<p>Hi, {user?.firstname} </p>
 						<Button name="Logout" className={styles.button} onClick={onLogout} />
 					</>
 				) : (

@@ -11,3 +11,7 @@ export const login = async (email: string, password: string) => {
 export const logout = async () => {
 	await apiClient.get(`/logout`);
 };
+
+export const googleAuth = async (token: string) => {
+	return (await apiClient.post('/google-auth', { jwtToken: token })).data;
+};

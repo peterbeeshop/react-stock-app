@@ -51,7 +51,7 @@ const HamburgerMenu = ({ isUserLoggedIn }: HamburgerMenuProps) => {
 					</Link>
 					{isUserLoggedIn ? (
 						<>
-							<p className={styles.user}>Hi,{user?.firstname} </p>
+							<p className={styles.user}>Hi, {user?.firstname} </p>
 							<Button name="Logout" className={styles.button} onClick={onLogout} />
 						</>
 					) : (

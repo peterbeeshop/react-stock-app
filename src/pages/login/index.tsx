@@ -4,6 +4,8 @@ import Button from '../../components/Buttons/Button';
 import { useAppDispatch } from '../../store/hooks';
 import { userActions } from '../../store/AuthSlice';
 import styles from '../signUp/index.module.scss';
+import { GoogleLogin } from '@react-oauth/google';
+import { toast } from 'react-toastify';
 
 const Index = () => {
 	const dispatch = useAppDispatch();
@@ -30,8 +32,21 @@ const Index = () => {
 					onChange={(e) => setUser({ ...user, password: e.target.value })}
 				/>
 				<Button name="Login" onClick={handleSubmit} />
-				<p>OR SIGN UP WITH</p>
-				<Button name="GOOGLE" />
+				<p>OR SIGN IN WITH</p>
+				<div style={{ display: 'flex', justifyContent: 'center' }}>
+					<GoogleLogin
+						useOneTap
+						onSuccess={({ credential }) => {
+							const onSuccess = () => navigate('/');
+							dispatch(userActions.googleLogin({ userToken: credential!, onSuccess }));
+						}}
+						theme="filled_blue"
+						shape="circle"
+						onError={() => {
+							toast.error('Error login in. Please try again!');
+						}}
+					/>
+				</div>
 
 				<Link to="/forgot-password" className={styles.forgotPassword}>
 					Forgot Password ?

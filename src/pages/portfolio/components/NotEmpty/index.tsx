@@ -5,7 +5,6 @@ import { portfolioSelectors } from '../../../../store/portfolio';
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
 import Stock1 from '../assets/stock-1.svg';
-import Stock2 from '../assets/stock-2.svg';
 import Stock3 from '../assets/stock-3.svg';
 
 const NotEmpty = () => {
@@ -27,7 +26,7 @@ export default NotEmpty;
 const Card = () => {
 	const navigate = useNavigate();
 	const myPortfolio = useAppSelector(portfolioSelectors.selectAllPortfolio);
-	const arr = [Stock1, Stock2, Stock3];
+	const arr = [Stock1, Stock3];
 	const random = Math.floor(Math.random() * arr.length);
 
 	const handleClick = (id: string) => {

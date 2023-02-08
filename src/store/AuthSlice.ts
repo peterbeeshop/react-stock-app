@@ -30,6 +30,10 @@ export const userSlice = createSlice({
 		setAuthToken: (state, action: PayloadAction<string | undefined>) => {
 			state.authToken = action.payload;
 		},
+		resetState: (state) => {
+			state.authToken = undefined;
+			state.user = {};
+		},
 	},
 });
 
@@ -57,7 +61,25 @@ const login = createThunkAction<void, { email: string; password: string; onSucce
 	async ({ email, password, onSuccess }, { dispatch }) => {
 		try {
 			const { token, user_logged } = await AuthService.login(email, password);
+			dispatch(userActions.setAuthToken(token));
+			dispatch(userActions.setUser(user_logged));
+			dispatch(watchlistActions.retrieveWatchlist());
 
+			onSuccess?.();
+		} catch (err) {
+			if (err instanceof AxiosError) {
+				toast.error(err.response?.data, { position: 'top-center' });
+			} else {
+				toast.error('Something went wrong with the servers. Please try again!');
+			}
+		}
+	},
+);
+const googleLogin = createThunkAction<void, { userToken: string; onSuccess?: () => void }>(
+	'users/googleLogin',
+	async ({ userToken, onSuccess }, { dispatch }) => {
+		try {
+			const { token, user_logged } = await AuthService.googleAuth(userToken);
 			dispatch(userActions.setAuthToken(token));
 			dispatch(userActions.setUser(user_logged));
 			dispatch(watchlistActions.retrieveWatchlist());
@@ -89,7 +111,7 @@ const logout = createThunkAction<void, void>('users/logout', async (_, { dispatc
 	}
 });
 
-export const userActions = { ...userSlice.actions, createAppUser, login, logout };
+export const userActions = { ...userSlice.actions, createAppUser, login, logout, googleLogin };
 
 export const userSelectors = {
 	selectAuthState: (state: RootState) => state.user.user,

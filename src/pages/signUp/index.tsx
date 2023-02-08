@@ -4,6 +4,9 @@ import Button from '../../components/Buttons/Button';
 import styles from './index.module.scss';
 import { useAppDispatch } from '../../store/hooks';
 import { userActions } from '../../store/AuthSlice';
+import { toast } from 'react-toastify';
+import { GoogleLogin } from '@react-oauth/google';
+
 const Index = () => {
 	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
@@ -15,8 +18,16 @@ const Index = () => {
 	});
 
 	const handleSubmit = () => {
-		dispatch(userActions.createAppUser(user));
-		navigate('/login');
+		if (user.password.length < 4) {
+			toast.error('Password must be more than 4 characters long');
+		} else if (user.email === '') {
+			toast.error('Please enter a valid email');
+		} else if (user.firstname === '') {
+			toast.error('Please provide atleast your first name');
+		} else {
+			dispatch(userActions.createAppUser(user));
+			navigate('/login');
+		}
 	};
 	return (
 		<div className={styles.container}>
@@ -43,7 +54,22 @@ const Index = () => {
 
 				<Button name="Create Account" onClick={handleSubmit} />
 				<p>OR SIGN UP WITH</p>
-				<Button name="GOOGLE" />
+				<div style={{ display: 'flex', justifyContent: 'center' }}>
+					<GoogleLogin
+						useOneTap
+						onSuccess={({ credential }) => {
+							const onSuccess = () => navigate('/');
+							dispatch(userActions.googleLogin({ userToken: credential!, onSuccess }));
+						}}
+						text="signup_with"
+						context="signup"
+						theme="filled_blue"
+						shape="circle"
+						onError={() => {
+							toast.error('Error login in. Please try again!');
+						}}
+					/>
+				</div>
 
 				<section>
 					<p>Already have an account?</p>
