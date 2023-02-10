@@ -19,10 +19,12 @@ import PortfilioSpecificStock from '../src/pages/portfolio/specific-stock';
 import Subscription from '../src/pages/subscription';
 import PageNotFound from '../src/pages/PageNotFound';
 import InfoAboutStock from '../src/pages/screener/infoAboutStock';
+import AdsComponent from './pages/Ads';
 function App() {
 	return (
 		<>
 			<Navbar />
+			<AdsComponent />
 			<ToastContainer position="top-center" />
 			<Routes>
 				<Route path="/" element={<HomePage />} />
