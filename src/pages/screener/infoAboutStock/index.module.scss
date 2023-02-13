@@ -8,6 +8,21 @@
     }
 }
 
+.modal {
+    background-color: #474D59;
+    cursor: pointer;
+
+    h2 {
+        padding-top: 8px;
+        margin-bottom: -10px;
+    }
+    p {
+        text-align: center;
+        padding-bottom: 5px;
+        color: #ffffff;
+    }
+}
+
 .aboutStock {
     margin-top: 40px;
     padding: 15px 5%;
@@ -178,6 +193,9 @@
         padding-left: 12px;
         font-size: 14px;
         color: $primary-color ;
+    }
+    img {
+        cursor: pointer;
     }
 }
 

@@ -1,0 +1,100 @@
+@import "../../../../assets/global-styles/theme.scss";
+
+.container {
+    display:flex;
+    flex-direction: column;
+    height: 100%;
+    width:100%;
+    table {
+        border-collapse:collapse;
+        table-layout: fixed;
+        width: 100%;
+      th {
+        font-weight: 600;
+        height: 45px;
+        font-size: 16px;
+        border-bottom: 2px solid #D9D9D9; 
+        border-top: 2px solid #D9D9D9;
+        color: $light-text;
+      }
+
+      th:first-child {  
+       border-left: 2px solid #D9D9D9;
+      }
+
+      th:last-child {
+       border-right: 2px solid #D9D9D9;
+      }
+
+    
+    tbody {
+        tr { 
+            height: 50px;
+            border: 1px solid #9C9494;  
+            td {
+                border: 1px solid #9C9494;  
+                text-align: center;
+                color: $light-text;
+                font-weight: 200;
+            }
+           
+        }
+        tr:hover {
+            background-color: #525e66;
+            cursor: pointer;
+        }
+    }
+    }
+    @media screen and (max-width: 768px) {
+        // width: 100%;
+    //    overflow-x: scroll;
+    //    table {
+    //        table-layout: auto;
+    //     //    border-collapse: separate;
+    //    }
+        padding: 0 10px;
+        thead {
+            display: none;
+        }
+        td {
+            display: block;
+            text-align: right;
+        }
+        td:first-child {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        td:nth-child(2)::before {
+           content: "symbol"; 
+        }
+        td:nth-child(3)::before {
+           content: "price"; 
+        }
+        td:nth-child(4)::before {
+           content: "volume"; 
+        }
+        td:nth-child(5)::before {
+           content: "price % chg"; 
+        }
+        td:nth-child(6)::before {
+           content: "industry"; 
+        }
+        td:nth-child(7)::before {
+           content: "Mkt cap"; 
+        }
+        // td{
+        //     text-align: end;
+        // }
+        td::before {
+            float: left;
+            padding-left: 10px;
+            margin-right: 3rem;
+            font-weight: 400;
+        }
+    }
+   
+}

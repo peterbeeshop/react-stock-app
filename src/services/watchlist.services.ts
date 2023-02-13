@@ -26,3 +26,7 @@ export const getWatchlistSymbols = async (search: string[]) => {
 export const deleteWatchlist = async (id: string) => {
 	return (await apiClient.post('/watchlist/delete', { id })).data;
 };
+
+export const deleteStockFromWatchlist = async (id: string | undefined, symbol: string) => {
+	return (await apiClient.post('/delete_from_list', { id, symbol })).data;
+};

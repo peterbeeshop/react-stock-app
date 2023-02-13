@@ -9,6 +9,12 @@ import { getAllStocks, stockSearch } from '../../../services/screener.services';
 import { useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { TableDataProps } from '..';
+import { useNavigate } from 'react-router-dom';
+import { watchlistActions, watchlistSelectors } from '../../../store/watchlist';
+import { userSelectors } from '../../../store/AuthSlice';
+import { Modal, Box } from '@mui/material';
+import { useAppSelector, useAppDispatch } from '../../../store/hooks';
+import { toast } from 'react-toastify';
 
 // type DataType = {
 // 	price: {
@@ -19,9 +25,37 @@ import { TableDataProps } from '..';
 // 	};
 // };
 const InfoAboutStock = () => {
-	let { isLoading, isError, data } = useQuery<TableDataProps>('stock-data', getAllStocks);
+	const dispatch = useAppDispatch();
+	const navigate = useNavigate();
+	const myWatchlist = useAppSelector(watchlistSelectors.selectAllWatchlist);
+	const authToken = useAppSelector(userSelectors.selectAuthToken);
+
+	let { data } = useQuery<TableDataProps>('stock-data', getAllStocks);
 	const { symbol } = useParams();
 	const [result, setResult] = useState({});
+
+	const [open, setOpen] = useState(false);
+	const handleOpen = () => {
+		if (authToken === undefined) {
+			toast.error('You need to log in or sign up to continue.');
+		} else {
+			setOpen(true);
+		}
+	};
+	const handleClose = () => setOpen(false);
+
+	const style = {
+		position: 'absolute' as 'absolute',
+		top: '50%',
+		left: '50%',
+		transform: 'translate(-50%, -50%)',
+		width: 300,
+		bgcolor: 'background.paper',
+		border: '2px solid #000',
+		boxShadow: 24,
+		p: 4,
+	};
+
 	useEffect(() => {
 		const data = stockSearch(symbol!);
 		data.then((res) => setResult(res)).catch((err) => console.log(err));
@@ -30,9 +64,38 @@ const InfoAboutStock = () => {
 	const obj = data?.filter((item) => item.symbol === symbol)!;
 	const { industry, volume, lastsale, name, sector, marketCap } = obj[0];
 	console.log(obj);
+
+	const addToWatchlist = (id: string, nameOfWatchlist: string) => {
+		const stock = [];
+		stock.push(obj[0].symbol);
+		console.log(id, stock);
+		dispatch(watchlistActions.addStockToWatchlist({ id, stock }));
+		setOpen(false);
+		toast.success(`${obj[0].name} successfully added to ${nameOfWatchlist}`);
+	};
 	return (
 		<div className={styles.container}>
 			<div className={styles.aboutStock}>
+				<Modal
+					open={open}
+					onClose={handleClose}
+					aria-labelledby="modal-modal-title"
+					aria-describedby="modal-modal-description"
+				>
+					<Box sx={style}>
+						{myWatchlist.map((watchlist) => {
+							return (
+								<div
+									onClick={() => addToWatchlist(watchlist._id, watchlist.name)}
+									className={styles.modal}
+								>
+									<h2>{watchlist.name}</h2>
+									<p>includes {watchlist.watchlist?.length} stocks</p>
+								</div>
+							);
+						})}
+					</Box>
+				</Modal>
 				<section className={styles.firstSection}>
 					<h3>{name}</h3>
 					<h4>({obj[0].symbol})</h4>
@@ -45,7 +108,7 @@ const InfoAboutStock = () => {
 					<p>{lastsale}</p>
 				</section>
 				<section className={styles.thirdSection}>
-					<h6>
+					<h6 onClick={handleOpen}>
 						<AddIcon fontSize="small" /> ADD TO WATCHLIST{' '}
 					</h6>
 					<h6>
@@ -102,7 +165,7 @@ const InfoAboutStock = () => {
 			<div className={styles.price}>
 				<h3 className={styles.overViewText}>Wallstreet finds price </h3>
 				<h2>$157</h2>
-				<img src={Calculator} alt="calculatorImage" />
+				<img onClick={() => navigate('/calculator')} src={Calculator} alt="calculatorImage" />
 				<p>press the calculator to open the calculator tool</p>
 			</div>
 			<div className={styles.commentSection}>

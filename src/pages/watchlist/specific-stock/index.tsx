@@ -7,45 +7,58 @@ import Button from '@mui/material/Button';
 import { Dialog, DialogContent, DialogContentText, DialogActions } from '@mui/material';
 import { TransitionProps } from '@mui/material/transitions';
 import Slide from '@mui/material/Slide';
-// import { getWatchlistSymbols } from '../../../services/watchlist.services';
-import Table from '../../../components/Table';
+import Table from '../components/Table';
 import { TableDataProps } from '../../screener';
 import { useQuery } from 'react-query';
 import { getAllStocks } from '../../../services/screener.services';
+// import AddIcon from '@mui/icons-material/Add';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const SpecificStock = () => {
+	console.log('here d');
 	const { id } = useParams();
 	let { data } = useQuery<TableDataProps>('stock-data', getAllStocks);
-	// const [result, setResult] = useState<TableDataProps>([]);
+	const navigate = useNavigate();
+
 	const specificWatchlist = useAppSelector((state) => watchlistSelectors.selectWatchlistById(state, id!));
 
 	let result = data?.filter((item) => {
 		return specificWatchlist?.watchlist?.includes(item.symbol);
 	});
-	// useEffect(() => {
-	// 	if (specificWatchlist?.watchlist?.length !== 0) {
-	// 		const data = getWatchlistSymbols(specificWatchlist?.watchlist!);
-	// 		data.then((data) => setResult(data)).catch((err) => console.log(err));
-	// 	}
-	// }, [specificWatchlist?.watchlist]);
 	result?.forEach((item) => {
 		item.price = item.lastsale;
-		// item.marketCap = parseFloat(item.marketCap).toLocaleString();
-		// item.volume = parseFloat(item.volume).toLocaleString();
+		item.marketCap = parseFloat(item.marketCap).toLocaleString();
+		item.volume = parseFloat(item.volume).toLocaleString();
+		// item.addToPortfolio = <AddIcon style={{ color: '#FFFFFF' }} color="info" />;
+		item.delete = <DeleteIcon style={{ color: '#B00F0F' }} color="info" />;
 		return item;
 	});
+
+	const handleNavigate = () => {
+		navigate(`/watchlist/${id}/add-stock`);
+	};
 	return (
 		<div className={styles.container}>
 			<h2>{specificWatchlist?.name}</h2>
-			<DeletePortfolio />
+			<div style={{ display: 'flex' }}>
+				<Button
+					style={{ width: '120px', height: '35px', marginRight: '30px' }}
+					variant="contained"
+					onClick={handleNavigate}
+				>
+					add stock
+				</Button>
+				<DeletePortfolio />
+			</div>
 			<p>Press the + button to add to portfolio</p>
 			{result?.length === 0 ? (
 				<p>This watchlist has no stocks</p>
 			) : (
 				<Table
 					content={result}
-					columns={['name', 'symbol', 'price', 'volume', 'pctchange', 'industry', 'marketCap']}
+					columns={['name', 'symbol', 'price', 'volume', 'pctchange', 'industry', 'marketCap', 'delete']}
 					count={result?.length!}
+					id={id}
 				/>
 			)}
 		</div>
@@ -78,12 +91,13 @@ export const DeletePortfolio = () => {
 	};
 
 	const handleDelete = () => {
+		dispatch(watchlistActions.retrieveWatchlist());
 		dispatch(watchlistActions.deleteWatchlist({ id: id!, onSuccess: () => navigate('/watchlist') }));
 	};
 
 	return (
 		<div>
-			<Button className={styles.button} variant="contained" onClick={handleClickOpen}>
+			<Button className={styles.deleteButton} variant="contained" onClick={handleClickOpen}>
 				Delete
 			</Button>
 			<Dialog
@@ -96,7 +110,7 @@ export const DeletePortfolio = () => {
 			>
 				<DialogContent>
 					<DialogContentText id="alert-dialog-slide-description">
-						Are you sure you want to delete this portfolio?
+						Are you sure you want to delete this watchlist?
 					</DialogContentText>
 				</DialogContent>
 				<DialogActions>

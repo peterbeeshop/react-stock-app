@@ -23,7 +23,7 @@ const NotEmpty = () => {
 
 export default NotEmpty;
 
-const Card = () => {
+export const Card = () => {
 	const navigate = useNavigate();
 	const myWatchlist = useAppSelector(watchlistSelectors.selectAllWatchlist);
 	const arr = [Stock1, Stock3];
