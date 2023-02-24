@@ -1,78 +1,71 @@
+
 @import '../../assets/global-styles/theme.scss';
-@import 'react-credit-cards/lib/styles.scss';
 
 .container {
-
     width: 45%;
     margin: 0 auto;
 
-    h2 {
-        color: $primary-color;
-        text-align: center;
-        font-weight: 800;
-    }
-
     h3 {
-        color: #d4d4d4;
         text-align: center;
+        color: #D4D4D4;
     }
 
-    @media screen and (max-width: 768px) {
-        width: 100%;
+    .btnContainer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 40px;
+        margin-bottom: 70px;
+        
+        button {
+            width: 200px;
+            height: 38px;
+            border-radius: 24px;
+            border: none;
+            cursor: pointer;
+            background-color: $primary-color;
+            color: white;
+            font-weight: 700;
+
+        }
+        button:hover {
+            background-color:#a3c86a ;
+        }
     }
-}
-
-.cardContainer {
-    background-color: $card;
-    width: 80%;
-    margin: 10px auto;
-    border-radius: 8px;
-    padding: 0 30px;
-
-    h4 {
-        text-align: center;
-        padding-top: 15px;
-        font-weight: 300;
-    }
-
-    input {
-        width: 100%;
-        margin: 15px 0;
-        height: 40px;
-        border: 1px solid transparent;
-        border-radius: 10px;
-        padding-left: 20px;
-        color: $deemphasized-text-color;
-    }
-
-    p {
-        color: $light-text;
-    }
-
-    button {
-        color: $light-text;
-        background-color: $secondary-color;
-        font-size: 18px;
-        border: 1px solid transparent;
-        width: 100%;
-        margin: 0 auto;
-        height: 40px;
-        border-radius: 12px;
-        margin-top: 20px;
-        margin-bottom: 5px;
-        cursor: pointer;
-    }
-
     @media screen and (max-width: 768px) {
         width: 90%;
-        margin-bottom: 50px;
     }
 }
 
-.text {
-    color: $light-text;
-    font-size: 14px;
-    text-align: center;
-    padding-bottom: 25px;
+.successContainer {
+    background-color: #536069;
+    width: 700px;
+    margin: 70px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 25px;
 
+    h2 {
+        font-weight: 400;
+        margin-top: 35px;
+        color: white;
+    }
+    img {
+        margin-top: 35px;
+    }
+
+    .button {
+        width: 240px;
+        height: 42px;
+        font-weight: 600 ;
+        font-size: 20px;
+        margin-top: 20px;
+        margin-bottom: 60px;
+    }
+
+    @media screen and (max-width: 760px) {
+        width: 90%;
+    }
 }
