@@ -17,14 +17,17 @@ import PortfolioAddStock from '../src/pages/portfolio/add-stock';
 import WatchlistSpecificStock from '../src/pages/watchlist/specific-stock';
 import PortfilioSpecificStock from '../src/pages/portfolio/specific-stock';
 import Subscription from '../src/pages/subscription';
+import Success from '../src/pages/subscription/success';
+import Cancel from '../src/pages/subscription/cancel';
 import PageNotFound from '../src/pages/PageNotFound';
 import InfoAboutStock from '../src/pages/screener/infoAboutStock';
+import Calculator from './pages/calculator';
 import AdsComponent from './pages/Ads';
 function App() {
 	return (
 		<>
 			<Navbar />
-			<AdsComponent />
+			{/* <AdsComponent /> */}
 			<ToastContainer position="top-center" />
 			<Routes>
 				<Route path="/" element={<HomePage />} />
@@ -34,6 +37,9 @@ function App() {
 				<Route path="/forgot-password" element={<ForgotPassword />} />
 				<Route path="/news" element={<News />} />
 				<Route path="/subscription" element={<Subscription />} />
+				<Route path="/subscription/success" element={<Success />} />
+				<Route path="/subscription/cancel" element={<Cancel />} />
+				<Route path="/calculator" element={<Calculator />} />
 				<Route path="/screener" element={<Screener />} />
 				<Route path="/screener/:symbol" element={<InfoAboutStock />} />
 				<Route path="/portfolio" element={<Portfolio />} />

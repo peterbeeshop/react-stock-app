@@ -6,7 +6,6 @@ import Button from '../../../components/Buttons/Button';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getAllStocks } from '../../../services/screener.services';
 import { TableDataProps } from '../../screener';
-import { addStockToWatchlist } from '../../../services/watchlist.services';
 import { toast } from 'react-toastify';
 import { watchlistActions } from '../../../store/watchlist';
 import { useAppDispatch } from '../../../store/hooks';

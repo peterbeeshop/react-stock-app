@@ -21,6 +21,8 @@ export type TableDataProps = {
 	price?: string;
 	value?: string;
 	label?: string;
+	delete?: any;
+	addToPortfolio: any;
 }[];
 
 const Index = () => {

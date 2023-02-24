@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from '../../watchlist/add-stock/index.module.scss';
+import styles from './index.module.scss';
 
 import Button from '../../../components/Buttons/Button';
 import { useNavigate, useParams } from 'react-router-dom';

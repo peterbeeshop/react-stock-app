@@ -12,17 +12,24 @@ import NotEmpty from './components/NotEmpty/NotEmpty';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { watchlistActions, watchlistSelectors } from '../../store/watchlist';
 import { getMyWatchlist } from '../../services/watchlist.services';
+import { userSelectors } from '../../store/AuthSlice';
 
 const Index = () => {
 	const dispatch = useAppDispatch();
+	const token = useAppSelector(userSelectors.selectAuthToken);
 
 	useEffect(() => {
-		const fetchData = async () => {
-			const data = await getMyWatchlist();
-			dispatch(watchlistActions.setWatchlist(data));
-		};
-		fetchData();
-	}, [dispatch]);
+		if (token === undefined) {
+			dispatch(watchlistActions.setWatchlist([]));
+		} else {
+			const fetchData = async () => {
+				const data = await getMyWatchlist();
+				dispatch(watchlistActions.setWatchlist(data));
+			};
+			fetchData();
+		}
+	}, [token, dispatch]);
+
 	const myWatchlist = useAppSelector(watchlistSelectors.selectAllWatchlist);
 	return (
 		<>
@@ -34,7 +41,11 @@ const Index = () => {
 					<p>
 						Create a watchlist so that you can be upto date with the <br /> stocks in this list.
 					</p>
-					<FormDialog />
+					{token === undefined ? (
+						<h4 style={{ color: '#6FA61A' }}>Log in or sign up to continue</h4>
+					) : (
+						<FormDialog />
+					)}
 				</div>
 			) : (
 				<div className={styles.notEmptyContainer}>

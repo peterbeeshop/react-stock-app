@@ -12,17 +12,23 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { portfolioActions, portfolioSelectors } from '../../store/portfolio';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { getMyPortfolio } from '../../services/portfolio.services';
+import { userSelectors } from '../../store/AuthSlice';
 
 const Index = () => {
 	const dispatch = useAppDispatch();
+	const token = useAppSelector(userSelectors.selectAuthToken);
 
 	useEffect(() => {
-		const fetchData = async () => {
-			const data = await getMyPortfolio();
-			dispatch(portfolioActions.setPortfolio(data));
-		};
-		fetchData();
-	}, [dispatch]);
+		if (token === undefined) {
+			dispatch(portfolioActions.setPortfolio([]));
+		} else {
+			const fetchData = async () => {
+				const data = await getMyPortfolio();
+				dispatch(portfolioActions.setPortfolio(data));
+			};
+			fetchData();
+		}
+	}, [token, dispatch]);
 	const myPortfolio = useAppSelector(portfolioSelectors.selectAllPortfolio);
 
 	return (
@@ -33,7 +39,11 @@ const Index = () => {
 						Your portfolio list is <br /> currently empty
 					</h2>
 					<p>Creating a portfolio is the easiest way to track your stocks.</p>
-					<FormDialog />
+					{token === undefined ? (
+						<h4 style={{ color: '#6FA61A' }}>Log in or sign up to continue</h4>
+					) : (
+						<FormDialog />
+					)}
 				</div>
 			) : (
 				<div className={styles.notEmptyContainer}>
@@ -62,7 +72,6 @@ export const FormDialog = () => {
 	};
 
 	const handleSubmit = () => {
-		// navigate('/portfolio/add-stock');
 		setOpen(false);
 		const onSuccess = (id: string) => navigate(`/portfolio/${id}/add-stock`);
 		dispatch(portfolioActions.createPortfolio({ portfolioName, onSuccess }));

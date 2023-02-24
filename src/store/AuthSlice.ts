@@ -7,6 +7,7 @@ import * as AuthService from '../services/auth.services';
 import { AxiosError } from 'axios';
 import { toast } from 'react-toastify';
 import { watchlistActions } from './watchlist';
+import { portfolioActions } from './portfolio';
 // Type for our state
 export interface UserState {
 	user?: Partial<AppUser>;
@@ -104,6 +105,7 @@ const logout = createThunkAction<void, void>('users/logout', async (_, { dispatc
 			dispatch(userActions.setUser({}));
 			dispatch(userActions.setAuthToken(undefined));
 			dispatch(watchlistActions.setWatchlist([]));
+			dispatch(portfolioActions.setPortfolio([]));
 			toast.error('Goodbye!');
 		}
 	} catch (error) {
