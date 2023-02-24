@@ -1,6 +1,6 @@
-import { useState, useRef, forwardRef } from 'react';
+import { useState, forwardRef } from 'react';
 import styles from '../index.module.scss';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
 
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -17,10 +17,10 @@ import { portfolioActions } from '../../../../store/portfolio';
 
 //rename button
 export const RenamePortfolio = () => {
-	const navigate = useNavigate();
+	const dispatch = useAppDispatch();
+	const { id } = useParams();
 	const [open, setOpen] = useState(false);
 	const [text, setText] = useState('');
-	const valueRef = useRef('');
 
 	const handleClickOpen = () => {
 		setOpen(true);
@@ -30,9 +30,9 @@ export const RenamePortfolio = () => {
 		setOpen(false);
 	};
 
-	const handleSubmit = () => {
-		setText(valueRef.current.valueOf);
-		navigate('/portfolio/specific-stock');
+	const handleSubmit = async () => {
+		dispatch(portfolioActions.renamePortfolio({ id: id!, name: text }));
+		setOpen(false);
 	};
 
 	return (
@@ -49,7 +49,7 @@ export const RenamePortfolio = () => {
 				<DialogTitle>Rename this portfolio</DialogTitle>
 				<DialogContent>
 					<TextField
-						inputRef={valueRef}
+						onChange={(e) => setText(e.target.value)}
 						autoFocus
 						margin="dense"
 						required
@@ -85,6 +85,9 @@ const Transition = forwardRef(function Transition(
 });
 
 export const DeletePortfolio = () => {
+	const dispatch = useAppDispatch();
+	const navigate = useNavigate();
+	const { id } = useParams();
 	const [open, setOpen] = useState(false);
 
 	const handleClickOpen = () => {
@@ -93,6 +96,11 @@ export const DeletePortfolio = () => {
 
 	const handleClose = () => {
 		setOpen(false);
+	};
+
+	const handleDelete = () => {
+		const onSuccess = () => navigate('/portfolio');
+		dispatch(portfolioActions.deletePortfolio({ id: id!, onSuccess }));
 	};
 
 	return (
@@ -117,7 +125,7 @@ export const DeletePortfolio = () => {
 					<Button style={{ color: '#6FA61A', textTransform: 'capitalize' }} onClick={handleClose}>
 						Close
 					</Button>
-					<Button onClick={handleClose} className={styles.deleteButton}>
+					<Button onClick={handleDelete} className={styles.deleteButton}>
 						Delete
 					</Button>
 				</DialogActions>
@@ -148,6 +156,7 @@ export const AddStock = () => {
 		dispatch(
 			portfolioActions.addStockToPortfolio({ id: id!, symbol, shares: numberOfShares, price: averagePrice }),
 		);
+		setOpen(false);
 		navigate(`/portfolio/${id}`);
 	};
 

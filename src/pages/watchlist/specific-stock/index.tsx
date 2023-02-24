@@ -15,7 +15,6 @@ import { getAllStocks } from '../../../services/screener.services';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 const SpecificStock = () => {
-	console.log('here d');
 	const { id } = useParams();
 	let { data } = useQuery<TableDataProps>('stock-data', getAllStocks);
 	const navigate = useNavigate();

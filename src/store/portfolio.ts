@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { createThunkAction, RootState } from '.';
 import { Portfolio } from '../types/portfolio';
 import * as PortfolioService from '../services/portfolio.services';
+import { useAppSelector } from './hooks';
 import { toast } from 'react-toastify';
 // import { userSelectors } from './AuthSlice';
 import { AxiosError } from 'axios';
@@ -67,7 +68,7 @@ const createPortfolio = createThunkAction<void, { portfolioName: string; onSucce
 // );
 
 const addStockToPortfolio = createThunkAction<void, { id: string; symbol: string; shares: string; price: string }>(
-	'watchlist/add-stock',
+	'portfolio/add-stock',
 	async ({ id, symbol, price, shares }, { dispatch }) => {
 		try {
 			await PortfolioService.addStockToPortfolio(id, symbol, shares, price);
@@ -83,28 +84,47 @@ const addStockToPortfolio = createThunkAction<void, { id: string; symbol: string
 	},
 );
 
-// const deleteWatchlist = createThunkAction<void, { id: string; onSuccess?: () => void }>(
-// 	'watchlist/delete',
-// 	async ({ id, onSuccess }, { dispatch }) => {
-// 		try {
-// 			await WatchlistService.deleteWatchlist(id);
-// 			onSuccess?.();
-// 		} catch (err) {
-// 			if (err instanceof AxiosError) {
-// 				toast.error('There was an error deleting this watchlist. Try again!');
-// 			} else {
-// 				toast.error('Something went wrong with the servers. Please try again!');
-// 			}
-// 		}
-// 	},
-// );
+const renamePortfolio = createThunkAction<void, { id: string; name: string }>(
+	'portfolio/rename',
+	async ({ id, name }, { dispatch }) => {
+		try {
+			await PortfolioService.renamePortfolio(id, name);
+
+			const portfolio = await PortfolioService.getMyPortfolio();
+			dispatch(portfolioActions.setPortfolio(portfolio));
+		} catch (err) {
+			if (err instanceof AxiosError) {
+				toast.error('There was an error adding stocks to this portfolio. Try again!');
+			} else {
+				toast.error('Something went wrong with the servers. Please try again!');
+			}
+		}
+	},
+);
+
+const deletePortfolio = createThunkAction<void, { id: string; onSuccess?: () => void }>(
+	'watchlist/delete',
+	async ({ id, onSuccess }, { dispatch }) => {
+		try {
+			await PortfolioService.deletePortfolio(id);
+			onSuccess?.();
+		} catch (err) {
+			if (err instanceof AxiosError) {
+				toast.error('There was an error deleting this watchlist. Try again!');
+			} else {
+				toast.error('Something went wrong with the servers. Please try again!');
+			}
+		}
+	},
+);
 
 export const portfolioActions = {
 	...slice.actions,
 	createPortfolio,
 	// retrieveWatchlist,
 	addStockToPortfolio,
-	// deleteWatchlist,
+	renamePortfolio,
+	deletePortfolio,
 };
 
 export const portfolioSelectors = {

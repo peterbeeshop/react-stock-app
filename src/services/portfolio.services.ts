@@ -20,3 +20,11 @@ export const getMyPortfolio = async (): Promise<Portfolio[]> => {
 export const viewPortfolio = async (id: string) => {
 	return (await apiClient.post('/portfolios/view', { id })).data;
 };
+
+export const renamePortfolio = async (id: string, name: string) => {
+	return (await apiClient.post('/renamePortfolio', { id, name })).data;
+};
+
+export const deletePortfolio = async (id: string) => {
+	return (await apiClient.post('/deletePortfolio', { id })).data;
+};
