@@ -1,5 +1,6 @@
 # Project Overview
 This app is a stock app that allows users to add a particular stock to their watchlist or portfolio, so that they can track it's performance overtime and see what their returns would be. I was responsible for building the front-end using React with typescript and the back-end using Node.js and Express. I also integrated the website with a payment gateway (pay-pal) and implemented user authentication and authorization using JSON Web Tokens.
+This is a work in progress, for I am always adding in new features and updating the app.
 Open [this link](https://wallstreetfinds.netlify.app/) to view the live project.
 
 ## The techonologies used are:
