@@ -1,23 +1,30 @@
-# Getting Started with Create React App
+# Project Overview
+This app is a stock app that allows users to add a particular stock to their watchlist or portfolio, so that they can track it's performance overtime and see what their returns would be. I was responsible for building the front-end using React with typescript and the back-end using Node.js and Express. I also integrated the website with a payment gateway (pay-pal) and implemented user authentication and authorization using JSON Web Tokens.
+Open [this link](https://wallstreetfinds.netlify.app/) to view the live project.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## The techonologies used are:
 
-## Available Scripts
+*   Yarn
+*   React
+*   Typescript
+*   Redux toolkit
+*   Material UI icons
+*   react-router-dom v6
+*   Google OAuth
+*   React query
 
-In the project directory, you can run:
+## Installation Instructions
 
-### `yarn start`
+To install this app, follow these steps:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Clone this repository to your local machine
+- Navigate to the root directory of the project using cd your-repo
+- Install the required dependencies by running `yarn || yarn install`
+- Once the dependencies are installed, you need to setup the development environment to run on `https` and not `http`. You can follow this guide on how to do so, this is so that we can use secure cookies across the browser from our backend  - [how to setup https in dev env](https://web.dev/how-to-use-local-https/).
+- Once the dependencies are installed and https is setup , start the app by running `yarn start`
+- The above command runs the app in the development mode.\
+Open [https://localhost:3000](https://localhost:3000) to view it in the browser.
+- You also need to clone the backend repo, install the dependecies and start the dev server, for the fronted to work as expected.
 
 ### `yarn build`
 
@@ -29,18 +36,3 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
